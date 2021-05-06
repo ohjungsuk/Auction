@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:theme="@style/EditTheme"
     tools:context=".LoginActivity">
 
     <ImageView
@@ -84,7 +85,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/signin_btn"
+        android:id="@+id/login_btn_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_btn"
@@ -101,7 +102,7 @@
 
     <CheckBox
         android:id="@+id/login_btn_save"
-        android:layout_below="@+id/signin_btn"
+        android:layout_below="@+id/login_btn_signup"
         android:layout_marginHorizontal="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
