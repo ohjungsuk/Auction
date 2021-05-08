@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F1F2F4"
+    android:id="@+id/menu2_root"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Menu2Fragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -10,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@color/black"
+        android:textSize="50sp"
         android:text="hello_blank_fragment2" />
 
-</FrameLayout>
+</androidx.core.widget.NestedScrollView>
