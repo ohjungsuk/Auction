@@ -37,8 +37,19 @@ public class BaseActivity extends Application {
             st_init_day = Integer.toString(init_day);
         }
 
-        final String init_dt = init_year + "-" + st_init_month + "-" + st_init_day + " " + st_init_time;
+        final String init_dt = init_year + "-" + st_init_month + "-" + st_init_day;
 
         return init_dt;
+    }
+
+    public static String getCurrentTime() {
+        // 현재 시간 가져오기
+        long now = System.currentTimeMillis();
+        Date mDate = new Date(now);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+
+        String st_init_time = simpleDateFormat.format(mDate);
+
+        return st_init_time;
     }
 }

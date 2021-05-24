@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,25 +16,29 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.ajou.auction.R;
 
 import java.util.Calendar;
 
+import static com.ajou.auction.BaseActivity.getCurrentTime;
 import static com.ajou.auction.BaseActivity.getTodayDate;
 
 public class PostActivity extends AppCompatActivity {
 
     private static final String TAG = "Post";
-    private final String init_time = getTodayDate();
+    private final String init_date = getTodayDate();
+    private final String init_time = getCurrentTime();
+
 
     private ImageButton btn_backToMain;
     private ImageView img_upload;
     private Button btn_post_write;
     private EditText et_post_content, et_post_title;
-    private TextView tv_post_choose_date;
+    private TextView tv_post_choose_date, tv_post_choose_time;
     private boolean activity_stack_check = true;
-    private int mEndYear, mEndMonth, mEndDay, mEndHour, mEndMinute, mEndSecond;
+    private int mEndYear, mEndMonth, mEndDay, mEndHour, mEndMinute;
     private String ENDDT = null;
 
     final int GET_GALLERY_IMAGE = 200;
@@ -48,7 +53,7 @@ public class PostActivity extends AppCompatActivity {
         btnMover();
         System.out.println(getTodayDate()); // 날짜, 시간 가져오기
 
-        tv_post_choose_date.setText(init_time);
+        tv_post_choose_date.setText(init_date);
         tv_post_choose_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,13 +89,49 @@ public class PostActivity extends AppCompatActivity {
                         else {
                             enddt = enddt + mEndDay;
                         }
-                        System.out.println("선택된 시작 날짜 : " + enddt);
+                        System.out.println("선택된 마감 날짜 : " + enddt);
                         tv_post_choose_date.setText(enddt);
 
                         ENDDT = enddt;
                     }
                 }, mYear, mMonth, mDay);
                 mDatePickerDialog.show();
+            }
+        });
+
+        tv_post_choose_time.setText(init_time);
+        tv_post_choose_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog timePickerDialog = new TimePickerDialog(PostActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                        // i : year, i1 : month, i2 : day
+
+                        mEndHour = i;
+                        mEndMinute = i1;
+                        System.out.println("i : " + mEndHour + "  i1 : " + mEndMinute);
+
+                        String endtime;
+                        if (mEndHour < 10) {
+                            endtime = "0" + mEndHour + ":";
+                        } else {
+                            endtime = mEndHour + ":";
+                        }
+
+                        System.out.println(endtime);
+                        if (mEndMinute < 10) {
+                            endtime = endtime + "0" + mEndMinute;
+                        } else {
+                            endtime = endtime + mEndMinute;
+                        }
+
+//                        endtime = mEndHour + ":" + mEndMinute;
+                        System.out.println("선택된 마감 시간 : " + endtime);
+                        tv_post_choose_time.setText(endtime);
+                    }
+                }, mEndHour, mEndMinute, true);
+                timePickerDialog.show();
             }
         });
     }
@@ -102,6 +143,7 @@ public class PostActivity extends AppCompatActivity {
         btn_backToMain = (ImageButton) findViewById(R.id.post_write_btn_close);
         img_upload = (ImageView) findViewById(R.id.post_write_btn_img);
         tv_post_choose_date = (TextView) findViewById(R.id.post_tv_date);
+        tv_post_choose_time = (TextView) findViewById(R.id.post_tv_time);
     }
 
     public void btnMover(){
