@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Auction">
         <activity
+            android:name=".Post.PostActivity"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
             android:name=".LoginActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -20,8 +23,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.Design.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.Design.NoActionBar"/>
     </application>
 
 </manifest>

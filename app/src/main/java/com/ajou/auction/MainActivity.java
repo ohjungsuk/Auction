@@ -5,14 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.ajou.auction.Category.Menu2Fragment;
+import com.ajou.auction.Chat.Menu3Fragment;
+import com.ajou.auction.Main.Menu1Fragment;
+import com.ajou.auction.My.Menu4Fragment;
+import com.ajou.auction.Post.PostActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
+    FloatingActionButton mFloatingActionButton;
 
     // FrameLayout에 각 메뉴의 Fragment를 바꿔 줌
     private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -27,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        init();
 
         // 첫 화면 지정
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -60,5 +69,18 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PostActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    public void init() {
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        mFloatingActionButton = findViewById(R.id.main_btn_post);
     }
 }
