@@ -6,16 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#F1F2F4"
-    android:id="@+id/menu1_root"
+    android:id="@+id/menu3_root"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".My.Menu4Fragment">
+    tools:context=".Chat.ChattingFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textColor="@color/black"
-        android:textSize="150sp"
-        android:text="hello_blank_fragment4" />
+        android:textSize="100sp"
+        android:text="hello_blank_fragment3" />
 
 </androidx.core.widget.NestedScrollView>

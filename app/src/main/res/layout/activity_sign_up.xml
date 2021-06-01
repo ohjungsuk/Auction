@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    tools:context=".Login.SignUpActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/signup_profile_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        app:title="프로필 정보 등록"
+        android:background="@color/theme"
+        android:paddingTop="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="5dp"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:titleTextColor="@color/teal_700"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:paddingStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:text="아이디 : "
+            android:textColor="@color/teal_700"
+            android:textSize="18sp" />
+        <EditText
+            android:textColor="@color/black"
+            android:inputType="textNoSuggestions"
+            android:id="@+id/signUP_edt_id"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:scrollHorizontally="false"
+            android:layout_marginEnd="20dp"
+            android:textSize="16sp"
+            android:hint="아이디를 입력해주세요."
+            android:backgroundTint="@color/theme"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:paddingStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:text="비밀번호 : "
+            android:textColor="@color/teal_700"
+            android:textSize="18sp" />
+        <EditText
+            android:inputType="phone"
+            android:id="@+id/signUP_edt_password"
+            android:textColor="@color/black"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:scrollHorizontally="false"
+            android:layout_marginEnd="20dp"
+            android:textSize="16sp"
+            android:hint="비밀번호를 입력해주세요."
+            android:backgroundTint="@color/theme"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:paddingStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:text="비번확인 : "
+            android:textColor="@color/teal_700"
+            android:textSize="18sp" />
+        <EditText
+            android:inputType="textNoSuggestions"
+            android:id="@+id/signUP_edt_pwcheck"
+            android:maxLength="30"
+            android:textColor="@color/black"
+            android:singleLine="true"
+            android:scrollHorizontally="false"
+            android:layout_marginEnd="20dp"
+            android:textSize="16sp"
+            android:hint="비번 재확인"
+            android:backgroundTint="@color/theme"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:paddingStart="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:text="내 닉네임: "
+            android:textColor="@color/teal_700"
+            android:textSize="18sp" />
+        <EditText
+            android:inputType="textNoSuggestions"
+            android:id="@+id/signUP_edt_nickname"
+            android:maxLength="30"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:scrollHorizontally="false"
+            android:layout_marginEnd="20dp"
+            android:textSize="16sp"
+            android:hint="닉네임을 입력해주세요."
+            android:backgroundTint="@color/theme"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <View
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+    <Button
+        android:id="@+id/signU_btn_done"
+        android:textSize="18sp"
+        android:text="회원가입 !"
+        android:gravity="center"
+        android:textColor="@android:color/white"
+        android:background="@color/theme"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+</LinearLayout>

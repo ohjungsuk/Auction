@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F1F2F4"
+    android:id="@+id/menu1_root"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".My.MypageFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
+        <Button
+            android:id="@+id/mypage_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:text="로그아웃"
+            android:stateListAnimator="@null"
+            android:textSize="16sp" />
+        <Button
+            android:id="@+id/mypage_signout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:text="회원탈퇴"
+            android:stateListAnimator="@null"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

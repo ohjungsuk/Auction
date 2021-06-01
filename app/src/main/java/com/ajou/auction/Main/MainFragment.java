@@ -12,10 +12,7 @@ import android.widget.TextView;
 
 import com.ajou.auction.R;
 
-import java.util.Arrays;
-import java.util.List;
-
-public class Menu1Fragment extends Fragment {
+public class MainFragment extends Fragment {
 
 //    private List<String> items = Arrays.asList("아이폰", "맥북", "아이맥");
     @Override
@@ -27,7 +24,7 @@ public class Menu1Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_menu1, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         TextView resultTextView = view.findViewById(R.id.menu1_temp1);
 
