@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#F1F2F4"
+    android:background="@color/white"
     android:id="@+id/menu2_root"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Category.CategoryFragment">
@@ -14,6 +14,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="카테고리"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="15dp"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/theme"/>
 
         <LinearLayout
             android:id="@+id/menu2_linear_layout"
@@ -27,6 +42,7 @@
                 android:background="@android:color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:clickable="true"
                 android:focusable="true" >
 
@@ -68,6 +84,7 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:orientation="horizontal" >
 
                         <TextView
@@ -75,7 +92,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
-                            android:text="거래 횟수  "
+                            android:text="팔로워 수 "
                             android:textSize="15sp" />
 
                         <TextView
@@ -100,7 +117,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
-                            android:text="리뷰 갯수  "
+                            android:text="평가 갯수  "
                             android:textSize="15sp" />
 
                         <TextView
@@ -121,6 +138,8 @@
 
         </LinearLayout>
 
+
+
         <TableLayout
             android:background="#FFFFFF"
             android:layout_width="match_parent"
@@ -140,9 +159,13 @@
                     <ImageView
                         android:layout_gravity="center"
                         android:layout_marginVertical="5dp"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_clothes" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxHeight="60dp"
+                        android:maxWidth="60dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/item1" />
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
@@ -162,11 +185,16 @@
                     android:orientation="vertical" >
 
                     <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
                         android:layout_gravity="center"
                         android:layout_marginVertical="5dp"
-                        android:src="@drawable/icon_beauty" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxHeight="60dp"
+                        android:maxWidth="60dp"
+                        android:paddingTop="5dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/item2" />
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
@@ -187,9 +215,14 @@
                     <ImageView
                         android:layout_gravity="center"
                         android:layout_marginVertical="5dp"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_digital" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="7dp"
+                        android:maxHeight="65dp"
+                        android:maxWidth="65dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/item3" />
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
@@ -215,9 +248,14 @@
                     <ImageView
                         android:layout_gravity="center"
                         android:layout_marginVertical="5dp"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_furniture" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="9dp"
+                        android:maxHeight="60dp"
+                        android:maxWidth="60dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/item4" />
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
@@ -238,9 +276,13 @@
                     <ImageView
                         android:layout_gravity="center"
                         android:layout_marginVertical="5dp"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_grocery" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxHeight="60dp"
+                        android:maxWidth="60dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/item5" />
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
@@ -261,9 +303,14 @@
                     <ImageView
                         android:layout_gravity="center"
                         android:layout_marginVertical="5dp"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_sports" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="4dp"
+                        android:maxHeight="65dp"
+                        android:maxWidth="63dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/item6" />
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
@@ -289,9 +336,15 @@
                     <ImageView
                         android:layout_gravity="center"
                         android:layout_marginVertical="5dp"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_game" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="3dp"
+                        android:paddingBottom="4dp"
+                        android:maxHeight="60dp"
+                        android:maxWidth="60dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/item7" />
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
@@ -312,9 +365,13 @@
                     <ImageView
                         android:layout_gravity="center"
                         android:layout_marginVertical="5dp"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/icon_book" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxHeight="58dp"
+                        android:maxWidth="58dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/item8" />
                     <TextView
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
@@ -334,11 +391,17 @@
                     android:orientation="vertical" >
 
                     <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
                         android:layout_gravity="center"
-                        android:layout_marginVertical="5dp"
-                        android:src="@drawable/icon_etc" />
+                        android:layout_marginVertical="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:maxHeight="55dp"
+                        android:maxWidth="55dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/item9" />
 
                     <TextView
                         android:layout_gravity="center"
@@ -353,14 +416,13 @@
 
         </TableLayout>
 
-
-        <ImageView
-            android:id="@+id/more_img_ad"
-            android:layout_marginVertical="5dp"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ompangi_angry"/>
+            android:layout_height="10dp"
+            android:layout_marginTop="15dp"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/theme"/>
+
 
         <LinearLayout
             android:background="@android:color/white"
@@ -377,7 +439,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="추천 스티커"
+                    android:text="추천 서비스"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 <TextView

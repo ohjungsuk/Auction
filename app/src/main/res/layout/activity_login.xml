@@ -39,7 +39,7 @@
         android:layout_marginHorizontal="20dp"
         android:singleLine="true"
         android:textSize="25sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:backgroundTint="@color/theme"
         android:hint="아이디" />
 
     <TextView
@@ -65,7 +65,7 @@
         android:inputType="textPassword"
         android:textSize="25sp"
         app:passwordToggleEnabled="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:backgroundTint="@color/theme"
         android:hint="비밀번호" />
 
     <Button
@@ -99,14 +99,5 @@
         android:textColor="@android:color/white"
         android:textSize="15sp"
         android:textStyle="bold" />
-
-    <CheckBox
-        android:id="@+id/login_btn_save"
-        android:layout_below="@+id/login_btn_signup"
-        android:layout_marginHorizontal="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="로그인 정보 기억하기" />
 
 </RelativeLayout>

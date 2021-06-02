@@ -13,7 +13,7 @@
         android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_margin="10dp">
+        android:layout_marginEnd="10dp">
 
         <ImageButton
             android:id="@+id/post_write_btn_close"
@@ -32,160 +32,243 @@
             android:textSize="18sp"
             android:paddingStart="10dp"
             android:layout_weight="1"
-            android:gravity="start|center_vertical"
-            android:text="게시물을 올려주세요!"
-            android:textColor="@color/theme"
+            android:gravity="center"
+            android:layout_marginEnd="25dp"
+            android:text="상품등록"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
 
-        <Button
-            android:id="@+id/post_write_btn_complete"
-            android:stateListAnimator="@null"
-            android:background="@drawable/rounding_btn"
-            android:layout_gravity="center_vertical"
-            android:text="등록"
-            android:textSize="14sp"
-            android:textColor="@android:color/white"
-            android:layout_width="70dp"
-            android:layout_height="36dp"/>
+        
 
     </LinearLayout>
-
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="?android:attr/listDivider"
-        android:backgroundTint="@color/theme"/>
-
-
-    <EditText
-        android:id="@+id/post_write_et_title"
-        android:layout_marginTop="10dp"
-        android:gravity="top"
-        android:padding="20dp"
-        android:theme="@style/theme"
-        android:textColorHint="@color/theme"
-        android:background="@null"
-        android:hint="제목"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:backgroundTint="@color/black"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="?android:attr/listDivider"
-        android:backgroundTint="@color/theme"/>
+        android:backgroundTint="@color/black"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <TextView
-            android:id="@+id/post_tv_label"
-            android:padding="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="false"
-            android:gravity="center"
-            android:text="마감일"
-            android:textColor="@color/theme"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/post_tv_date"
-            android:padding="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="false"
-            android:gravity="center"
-            android:textColor="@color/theme"
-            android:textSize="20sp"
-            tools:text="2021-01-01" />
-
-        <TextView
-            android:id="@+id/post_tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="false"
-            android:gravity="center"
-            android:paddingVertical="20dp"
-            android:textColor="@color/theme"
-            android:textSize="20sp"
-            tools:text="20:00" />
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="@color/theme"/>
-
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:textSize="16sp"
-            android:layout_weight="1"
-            android:text="사진 추가"
-            android:textColor="@color/theme"/>
-
-        <ImageView
-            android:id="@+id/post_write_btn_img"
-            android:background="@drawable/image"
-            android:layout_width="150dp"
-            android:layout_height="135dp"
-            android:layout_marginVertical="15dp"
-            android:scaleType="center"
-            android:clickable="true"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="@color/theme"/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_weight="1"
+        android:background="@color/white">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:textSize="13sp"
+                android:text="상품명"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:id="@+id/post_write_et_title"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="top"
+                android:padding="10dp"
+                android:textSize="13sp"
+                android:layout_marginEnd="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:background="@drawable/borderline"
+                android:hint="최대 30자까지 입력가능!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:textSize="13sp"
+                android:text="카테고리"
+                android:textColor="@color/black"/>
+
+            <Button
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:stateListAnimator="@null"
+                android:padding="10dp"
+                android:textSize="13sp"
+                android:layout_marginEnd="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:background="@drawable/borderline"
+                android:hint="카테고리 선택"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:textSize="13sp"
+                android:text="경매시작가"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:id="@+id/post_write_et_price"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="top"
+                android:padding="10dp"
+                android:textSize="13sp"
+                android:layout_marginEnd="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:background="@drawable/borderline"
+                android:hint="경매 시작 가격을 입력해주세요!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
             <LinearLayout
-                android:id="@+id/image_layout"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_weight="1"
+                    android:text="경매 마감일"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/post_tv_date"
+                    android:background="@drawable/borderline"
+                    android:padding="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    tools:text="2021-01-01" />
+
+                <TextView
+                    android:id="@+id/post_tv_time"
+                    android:background="@drawable/borderline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    tools:text="20:00" />
+
 
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/post_write_et_content"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:text="사진 추가"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="12sp"
+                        android:text="경매에 올릴 사진을 선택해주세요!"
+                        android:textColor="@android:color/darker_gray"/>
+                </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/post_write_btn_img"
+                    android:background="@drawable/image"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="center"
+                    android:clickable="true"/>
+                <ImageView
+                    android:id="@+id/post_set_img"
+                    android:visibility="gone"
+                    android:background="@drawable/image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="center"
+                    android:clickable="true"/>
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:textSize="13sp"
+                android:text="상품설명"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:id="@+id/post_write_et_content"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:gravity="top"
-                android:hint="내용"
-                android:padding="20dp"
-                android:background="@null"
+                android:padding="10dp"
+                android:textSize="13sp"
+                android:layout_marginEnd="15dp"
                 android:textColor="@color/black"
-                android:textColorHint="@color/theme" />
+                android:textColorHint="@android:color/darker_gray"
+                android:background="@drawable/borderline"
+                android:hint="사이즈,색상,사용감등 상세한 상품정보를 입력하면 더욱 수월하게 거래할 수 있습니다."
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
         </LinearLayout>
-    </ScrollView>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/post_write_btn_complete"
+        android:stateListAnimator="@null"
+        android:background="@color/theme"
+        android:layout_gravity="center_vertical"
+        android:text="등록"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

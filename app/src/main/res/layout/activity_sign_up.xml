@@ -19,7 +19,7 @@
         android:paddingStart="10dp"
         android:paddingEnd="5dp"
         app:layout_scrollFlags="scroll|enterAlways"
-        app:titleTextColor="@color/teal_700"
+        app:titleTextColor="@color/black"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
 
@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:gravity="right|center_vertical"
             android:text="아이디 : "
-            android:textColor="@color/teal_700"
+            android:textColor="@color/black"
             android:textSize="18sp" />
         <EditText
             android:textColor="@color/black"
@@ -63,7 +63,7 @@
             android:layout_height="match_parent"
             android:gravity="right|center_vertical"
             android:text="비밀번호 : "
-            android:textColor="@color/teal_700"
+            android:textColor="@color/black"
             android:textSize="18sp" />
         <EditText
             android:inputType="phone"
@@ -92,7 +92,7 @@
             android:layout_height="match_parent"
             android:gravity="right|center_vertical"
             android:text="비번확인 : "
-            android:textColor="@color/teal_700"
+            android:textColor="@color/black"
             android:textSize="18sp" />
         <EditText
             android:inputType="textNoSuggestions"
@@ -122,7 +122,7 @@
             android:layout_height="match_parent"
             android:gravity="right|center_vertical"
             android:text="내 닉네임: "
-            android:textColor="@color/teal_700"
+            android:textColor="@color/black"
             android:textSize="18sp" />
         <EditText
             android:inputType="textNoSuggestions"
