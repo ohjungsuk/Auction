@@ -13,6 +13,14 @@
         android:theme="@style/Theme.Auction"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Category.ParticipateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
+            android:name=".Category.ViewPostActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
             android:name=".Category.CategoryListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.NoActionBar" />

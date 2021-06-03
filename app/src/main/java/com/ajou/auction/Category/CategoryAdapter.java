@@ -1,6 +1,8 @@
 package com.ajou.auction.Category;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +61,23 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
 
         holder.tv_likeCnt.setText(item.getLikeCnt());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mContext = view.getContext();
+
+                SharedPreferences sharedPreferences = mContext.getSharedPreferences("boardId", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                System.out.println("position " + position);
+//                Long boardId; // boardId 받아서 저장해줘야함
+//                System.out.println("longlong" + boardId);
+//                editor.putLong("categoryId", boardId);
+//                editor.apply();
+
+                Intent intent = new Intent(mContext, ViewPostActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
