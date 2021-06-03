@@ -17,7 +17,7 @@
         android:layout_marginStart="280dp"
         android:layout_marginTop="480dp"
         android:src="@drawable/icon_add"
-        app:backgroundTint="#66CCFF"
+        app:backgroundTint="@color/theme"
         app:fabSize="normal"
         app:layout_anchorGravity="bottom|end" />
 
@@ -32,6 +32,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        app:itemBackground="@color/theme"
+        app:itemIconTint="@color/white"
+        app:itemTextColor="@color/white"
         app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

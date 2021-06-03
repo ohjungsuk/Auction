@@ -156,14 +156,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical" >
+
                     <ImageView
-                        android:layout_gravity="center"
-                        android:layout_marginVertical="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:maxHeight="60dp"
-                        android:maxWidth="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginVertical="5dp"
                         android:adjustViewBounds="true"
+                        android:maxWidth="60dp"
+                        android:maxHeight="60dp"
                         android:scaleType="fitCenter"
                         android:src="@drawable/item1" />
                     <TextView
