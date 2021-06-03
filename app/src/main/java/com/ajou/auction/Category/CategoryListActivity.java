@@ -6,14 +6,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
 import com.ajou.auction.R;
 
 import java.util.ArrayList;
 
 public class CategoryListActivity extends AppCompatActivity {
 
-    private int categoryId;
+    private Long categoryId;
     private ArrayList<CategoryListItem> dataList = new ArrayList<>();
+    private Button btn_close;
+    private TextView tv_category_name;
+    private String categoryName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +28,41 @@ public class CategoryListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category_list);
 
         SharedPreferences sharedPreferences = getSharedPreferences("categoryId", MODE_PRIVATE);
-        categoryId = sharedPreferences.getInt("categoryId", categoryId);
+        categoryId = sharedPreferences.getLong("categoryId", 0);
         System.out.println("Category Id 확인 " + categoryId);
+
+
+
+        btn_close = findViewById(R.id.category_btn_close);
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        if (categoryId == 1) {
+            categoryName = "의류/잡화";
+        } else if (categoryId == 2) {
+            categoryName = "뷰티";
+        } else if (categoryId == 3) {
+            categoryName = "디지털/가전";
+        } else if (categoryId == 4) {
+            categoryName = "가구/인테리어";
+        } else if (categoryId == 5) {
+            categoryName = "생활/가공식품";
+        } else if (categoryId == 6) {
+            categoryName = "스포츠/레저";
+        } else if (categoryId == 7) {
+            categoryName = "게임/취미";
+        } else if (categoryId == 8) {
+            categoryName = "도서/티켓/음반";
+        } else if (categoryId == 9) {
+            categoryName = "기타/무료나눔";
+        }
+
+        tv_category_name = findViewById(R.id.category_tv_name);
+        tv_category_name.setText(categoryName);
 
 
         for (int i = 0; i < 10; i++) {

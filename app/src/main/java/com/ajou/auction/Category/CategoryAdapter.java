@@ -1,6 +1,7 @@
 package com.ajou.auction.Category;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         mAnimation.setRepeatMode(Animation.REVERSE);
 
         holder.tv_price.startAnimation(mAnimation);
+        holder.tv_price.setTextColor(Color.RED);
 
 
 

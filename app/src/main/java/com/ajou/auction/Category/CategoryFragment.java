@@ -36,7 +36,7 @@ public class CategoryFragment extends Fragment {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentToActivity(1);
+                fragmentToActivity(Long.valueOf(new Integer(1)));
             }
         });
 
@@ -44,7 +44,7 @@ public class CategoryFragment extends Fragment {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentToActivity(2);
+                fragmentToActivity(Long.valueOf(2));
             }
         });
 
@@ -52,7 +52,7 @@ public class CategoryFragment extends Fragment {
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentToActivity(3);
+                fragmentToActivity(Long.valueOf(3));
             }
         });
 
@@ -60,7 +60,7 @@ public class CategoryFragment extends Fragment {
         btn4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentToActivity(4);
+                fragmentToActivity((long) 4);
             }
         });
 
@@ -68,7 +68,7 @@ public class CategoryFragment extends Fragment {
         btn5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentToActivity(5);
+                fragmentToActivity((long) 5);
             }
         });
 
@@ -76,7 +76,7 @@ public class CategoryFragment extends Fragment {
         btn6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentToActivity(6);
+                fragmentToActivity((long) 6);
             }
         });
 
@@ -84,7 +84,7 @@ public class CategoryFragment extends Fragment {
         btn7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentToActivity(7);
+                fragmentToActivity((long) 7);
             }
         });
 
@@ -92,7 +92,7 @@ public class CategoryFragment extends Fragment {
         btn8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentToActivity(8);
+                fragmentToActivity((long) 8);
             }
         });
 
@@ -100,17 +100,18 @@ public class CategoryFragment extends Fragment {
         btn9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentToActivity(9);
+                fragmentToActivity((long) 9);
             }
         });
 
         return view;
     }
 
-    private void fragmentToActivity(int categoryId) {
+    private void fragmentToActivity(Long categoryId) {
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("categoryId", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("categoryId", categoryId);
+        System.out.println("longlong" + categoryId);
+        editor.putLong("categoryId", categoryId);
         editor.apply();
 
         Intent intent = new Intent(getActivity(), CategoryListActivity.class);
