@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Auction</string>
+    <string name="app_name">잡경매</string>
     <string name="text_label_1">홈</string>
     <string name="text_label_2">카테고리</string>
     <string name="text_label_3">채팅</string>
