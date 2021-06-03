@@ -1,15 +1,10 @@
 package com.ajou.auction.Chat;
 
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.ajou.auction.R;
 import com.bumptech.glide.Glide;
@@ -18,56 +13,61 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
+public class ChatAdapter extends BaseAdapter {
 
-    private final ArrayList<ChatItem> mDataList;
-    private Context mContext;
+    ArrayList<MessageItem> messageItems;
+    LayoutInflater layoutInflater;
 
-    public ChatAdapter(ArrayList<ChatItem> mDataList) {
-        this.mDataList = mDataList;
-    }
-
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat, parent, false);
-        return new ChatAdapter.ViewHolder(view);
+    public ChatAdapter(ArrayList<MessageItem> messageItems, LayoutInflater layoutInflater) {
+        this.messageItems = messageItems;
+        this.layoutInflater = layoutInflater;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ChatItem item = mDataList.get(position);
-
-        holder.tv_sender.setText(item.getSender());
-        holder.tv_message.setText(item.getMessage());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mContext = view.getContext();
-
-                Intent intent = new Intent(mContext, ChatActivity.class);
-                mContext.startActivity(intent);
-            }
-        });
-//        holder.img_profile.setImageResource(R.drawable.icon_auction);
+    public int getCount() {
+        return messageItems.size();
     }
 
     @Override
-    public int getItemCount() {
-        return mDataList.size();
+    public Object getItem(int position) {
+        return messageItems.get(position);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-//        ImageView img_profile;
-        TextView tv_sender, tv_message;
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+    @Override
+    public View getView(int position, View view, ViewGroup viewGroup) {
 
-            tv_sender = itemView.findViewById(R.id.chat_txt_name);
-            tv_message = itemView.findViewById(R.id.chat_txt_intro);
-//            img_profile = itemView.findViewById(R.id.chat_img_profile);
-        }
+        //현재 보여줄 번째의(position)의 데이터로 뷰를 생성
+        MessageItem item = messageItems.get(position);
+
+        //재활용할 뷰는 사용하지 않음!!
+        View itemView = null;
+
+//        //메세지가 내 메세지인지??
+//        if (item.getName().equals(G.nickName)){
+//            itemView = layoutInflater.inflate(R.layout.my_msgbox,viewGroup,false);
+//        } else{
+//            itemView = layoutInflater.inflate(R.layout.other_msgbox,viewGroup,false);
+//        }
+
+        itemView = layoutInflater.inflate(R.layout.my_msgbox,viewGroup,false);
+
+        //만들어진 itemView에 값들 설정
+        CircleImageView iv= itemView.findViewById(R.id.iv);
+        TextView tvName= itemView.findViewById(R.id.tv_name);
+        TextView tvMsg= itemView.findViewById(R.id.tv_msg);
+        TextView tvTime= itemView.findViewById(R.id.tv_time);
+
+        tvName.setText(item.getName());
+        tvMsg.setText(item.getMessage());
+        tvTime.setText(item.getTime());
+
+        Glide.with(itemView).load(item.getPofileUrl()).into(iv);
+
+        return itemView;
     }
 }

@@ -43,8 +43,8 @@ public class ChattingFragment extends Fragment {
         dataList.add(new ChatItem("하", "좋은 거래 감사합니다!"));
         dataList.add(new ChatItem("경매쟁", "지하철 역 앞에서 만나영"));
 
-        ChatAdapter chatAdapter = new ChatAdapter(dataList);
-        recyclerView.setAdapter(chatAdapter);
+        ChattingAdapter chattingAdapter = new ChattingAdapter(dataList);
+        recyclerView.setAdapter(chattingAdapter);
         recyclerView.getAdapter().notifyDataSetChanged();
     }
 }
