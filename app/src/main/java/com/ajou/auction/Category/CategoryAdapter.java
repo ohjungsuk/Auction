@@ -69,10 +69,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 SharedPreferences sharedPreferences = mContext.getSharedPreferences("boardId", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 System.out.println("position " + position);
-//                Long boardId; // boardId 받아서 저장해줘야함
-//                System.out.println("longlong" + boardId);
-//                editor.putLong("categoryId", boardId);
-//                editor.apply();
+                Long boardId = Long.valueOf(position); // boardId 받아서 저장해줘야함
+                System.out.println("longlong " + boardId);
+                editor.putLong("boardId", boardId);
+                editor.apply();
+
 
                 Intent intent = new Intent(mContext, ViewPostActivity.class);
                 mContext.startActivity(intent);

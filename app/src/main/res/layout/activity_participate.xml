@@ -5,14 +5,138 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:orientation="vertical"
+    android:background="@android:color/white"
     tools:context=".Category.ParticipateActivity">
 
-    <TextView
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginEnd="10dp">
+
+        <ImageButton
+            android:id="@+id/participate_btn_close"
+            android:stateListAnimator="@null"
+            android:background="@android:color/white"
+            android:maxHeight="3dp"
+            android:maxWidth="3dp"
+            android:padding="18dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/close"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:textSize="18sp"
+            android:paddingStart="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginEnd="30dp"
+            android:text="경매 참여"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/black"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/black"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#F1F2F4"/>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="100sp"
-        android:textColor="@color/black"
-        android:text="경매 참여 페이지 구현중" />
+        android:layout_weight="1"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:text="현재 최고가"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/participate_tv_best_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="16sp"
+                    android:text="30000"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                android:text="금액"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:inputType="number"
+                android:singleLine="true"
+                android:id="@+id/participate_tv_price"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:gravity="top"
+                android:padding="10dp"
+                android:textSize="16sp"
+                android:layout_marginEnd="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@android:color/darker_gray"
+                android:background="@drawable/borderline"
+                android:hint="금액을 입력해주세요!"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/participate_btn_complete"
+        android:stateListAnimator="@null"
+        android:background="@color/theme"
+        android:layout_gravity="center_vertical"
+        android:text="경매 참여 완료하기"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
