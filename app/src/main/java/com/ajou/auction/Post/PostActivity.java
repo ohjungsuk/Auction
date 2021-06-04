@@ -1,5 +1,6 @@
 package com.ajou.auction.Post;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +8,10 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -20,16 +24,20 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.ajou.auction.R;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import static com.ajou.auction.BaseActivity.getCurrentTime;
 import static com.ajou.auction.BaseActivity.getTodayDate;
 
-public class PostActivity extends AppCompatActivity {
+public class PostActivity extends AppCompatActivity implements ImageInterface {
 
     private static final String TAG = "Post";
     private final String init_date = getTodayDate();
@@ -38,6 +46,7 @@ public class PostActivity extends AppCompatActivity {
 
     private String selectedCategory; // 카테고리 이름
     private Long selectedCategoryNum = Long.valueOf(1); // 서버에 전달할 카테고리 번호 (초기 번호는 1)
+    private String img_uri; // 서버에 전달할 이미지 url을 string으로 반환하여 전달
     private ImageButton btn_backToMain;
     private ImageView img_upload;
     private Button btn_post_write;
@@ -46,6 +55,10 @@ public class PostActivity extends AppCompatActivity {
     private boolean activity_stack_check = true;
     private int mEndYear, mEndMonth, mEndDay, mEndHour, mEndMinute;
     private String ENDDT = null;
+
+    private FirebaseFirestore db;
+    private FirebaseUser firebaseUser;
+    private Uri mImgUri;
 
     final int GET_GALLERY_IMAGE = 200;
     final int REQUEST_IMAGE_CODE = 1001;
@@ -189,7 +202,7 @@ public class PostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(PostActivity.this)
-                        .setMessage("뒤로가시면 내용이 저장되지 않습니다.")
+                        .setMessage("뒤로 가시면 내용이 저장되지 않습니다.")
                         .setPositiveButton("네", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -228,5 +241,51 @@ public class PostActivity extends AppCompatActivity {
         if (title.length() > 0 && content.length() > 0){
 
         }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_IMAGE_CODE) {
+            Uri image = data.getData();
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                try {
+                    // 선택한 이미지에서 비트맵 생성
+                    InputStream in = getContentResolver().openInputStream(data.getData());
+                    Bitmap img = BitmapFactory.decodeStream(in);
+                    in.close();
+                    // 이미지뷰에 세팅
+                    img_upload.setImageBitmap(img);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                uploadImage(image);
+            }
+        }
+    }
+
+    // Uri를 FireBase에 전송하고
+    private void uploadImage(Uri imgUri) {
+        final ImageService imageService = new ImageService(this);
+        imageService.uploadFileToFireBase(imgUri);
+    }
+
+    // 경로 받아오기
+    @Override
+    public void uploadFireBaseSuccess(Uri uri) {
+        mImgUri = uri;
+        img_uri = mImgUri.toString();
+        System.out.println("Image URI " + img_uri);
+    }
+
+
+    @Override
+    public void uploadFireBaseFailure() {
+        Toast.makeText(getApplicationContext(), "firebase upload fail ", Toast.LENGTH_SHORT).show();
     }
 }
