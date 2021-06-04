@@ -1,8 +1,7 @@
-package com.ajou.auction.Category;
+package com.ajou.auction.Main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,23 +9,22 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ajou.auction.Category.ViewPostActivity;
 import com.ajou.auction.R;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
-    private final ArrayList<CategoryListItem> mDataList;
+    private final ArrayList<SearchListItem> mDataList;
     private Context mContext;
 
-    public CategoryAdapter(ArrayList<CategoryListItem> mDataList) {
+    public SearchAdapter(ArrayList<SearchListItem> mDataList) {
         this.mDataList = mDataList;
     }
 
@@ -35,15 +33,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_postlist, parent, false);
 
-
-
-        return new ViewHolder(view);
+        return new SearchAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CategoryListItem item = mDataList.get(position);
-        
+        SearchListItem item = mDataList.get(position);
+
         //Glide.with(mContext).load(item.getImg()).into(holder.img);
         holder.tv_title.setText(item.getTitle());
         holder.tv_endDate.setText(item.getEndDate());

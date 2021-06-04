@@ -1,4 +1,4 @@
-package com.ajou.auction.Category;
+package com.ajou.auction.My;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,23 +10,22 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ajou.auction.Category.ViewPostActivity;
 import com.ajou.auction.R;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+public class LikedListAdapter extends RecyclerView.Adapter<LikedListAdapter.ViewHolder> {
 
-    private final ArrayList<CategoryListItem> mDataList;
+    private final ArrayList<LikedListItem> mDataList;
     private Context mContext;
 
-    public CategoryAdapter(ArrayList<CategoryListItem> mDataList) {
+    public LikedListAdapter(ArrayList<LikedListItem> mDataList) {
         this.mDataList = mDataList;
     }
 
@@ -34,17 +33,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_postlist, parent, false);
-
-
-
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CategoryListItem item = mDataList.get(position);
-        
-        //Glide.with(mContext).load(item.getImg()).into(holder.img);
+        LikedListItem item = mDataList.get(position);
+
         holder.tv_title.setText(item.getTitle());
         holder.tv_endDate.setText(item.getEndDate());
         holder.tv_price.setText(item.getPrice());
@@ -58,22 +53,20 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.tv_price.startAnimation(mAnimation);
         holder.tv_price.setTextColor(Color.RED);
 
-
-
         holder.tv_likeCnt.setText(item.getLikeCnt());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mContext = view.getContext();
 
-//                SharedPreferences sharedPreferences = mContext.getSharedPreferences("boardId", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                System.out.println("position " + position);
-//                Long boardId = Long.valueOf(position); // boardId 받아서 저장해줘야함
-//                System.out.println("longlong " + boardId);
-//                editor.putLong("boardId", boardId);
-//                editor.apply();
-                // 여기서는 그냥 보여주기만..
+                SharedPreferences sharedPreferences = mContext.getSharedPreferences("boardId", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                System.out.println("position " + position);
+                Long boardId = Long.valueOf(position); // boardId 받아서 저장해줘야함
+                System.out.println("longlong " + boardId);
+                editor.putLong("boardId", boardId);
+                editor.apply();
+
 
                 Intent intent = new Intent(mContext, ViewPostActivity.class);
                 mContext.startActivity(intent);

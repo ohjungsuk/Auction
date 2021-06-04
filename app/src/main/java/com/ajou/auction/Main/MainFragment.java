@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,10 +20,11 @@ import com.bumptech.glide.Glide;
 
 public class MainFragment extends Fragment {
 
-//    private List<String> items = Arrays.asList("아이폰", "맥북", "아이맥");
+    private EditText et_search;
     private TextView tv_popular_title;
-    private Button btn_popular;
+    private Button btn_popular, btn_search;
     private ImageView img_gif;
+    static public String keyWord; // 검색 문자열
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,21 +37,7 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-       // TextView resultTextView = view.findViewById(R.id.menu1_temp1);
-
-        SearchView searchView = view.findViewById(R.id.menu1_search_view);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) { // 검색 버튼 눌렀을 떄
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) { // 타자칠 때마다 변함
-                return false;
-            }
-        });
-
+        et_search = view.findViewById(R.id.main_et_search);
         tv_popular_title = view.findViewById(R.id.main_popular_title);
 
         btn_popular = view.findViewById(R.id.main_btn_popular);
@@ -58,6 +46,20 @@ public class MainFragment extends Fragment {
             public void onClick(View view) {
                 // 실시간 인기 매물 api 받아서 호출해야함
                 Intent intent = new Intent(getActivity(), ViewPostActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_search = view.findViewById(R.id.main_btn_search);
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                keyWord = et_search.getText().toString();
+                System.out.println("검색 단어 : " + keyWord);
+
+                // keyword에 해당하는 단어를 포함해서 서버로
+
+                Intent intent = new Intent(getActivity(), SearchListActivity.class);
                 startActivity(intent);
             }
         });

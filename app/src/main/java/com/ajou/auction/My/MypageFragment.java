@@ -12,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.ajou.auction.Category.CategoryListActivity;
 import com.ajou.auction.Login.Interfaces.SignOutActivityView;
 import com.ajou.auction.Login.Interfaces.SignOutRetrofitInterface;
 import com.ajou.auction.Login.LoginActivity;
@@ -26,6 +28,7 @@ import static com.ajou.auction.ApplicationClass.jwt;
 
 public class MypageFragment extends Fragment implements SignOutActivityView {
     Button mypage_signout,mypage_logout;
+    private LinearLayout btn_follower, btn_comment, btn_like;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,12 +43,23 @@ public class MypageFragment extends Fragment implements SignOutActivityView {
         init(view);
         btn_mover(view);
 
+        btn_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LikedListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
     public void init(View view){
         mypage_logout = view.findViewById(R.id.mypage_logout);
         mypage_signout = view.findViewById(R.id.mypage_signout);
+        btn_follower = view.findViewById(R.id.menu4_btn_follower);
+        btn_comment = view.findViewById(R.id.menu4_btn_comment);
+        btn_like = view.findViewById(R.id.menu4_btn_like);
     }
 
     public void btn_mover(View view){
