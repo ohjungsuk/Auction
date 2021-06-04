@@ -97,7 +97,10 @@
                 android:text="카테고리"
                 android:textColor="@color/black"/>
 
-            <Button
+            <TextView
+                android:clickable="true"
+                android:focusable="true"
+                android:id="@+id/post_write_btn_category"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center_vertical"

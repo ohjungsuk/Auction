@@ -10,17 +10,24 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".My.MypageFragment">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
         android:textColor="@color/black"
-        android:textSize="14sp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginHorizontal="15dp"
-        android:text="내 정보"
-        android:gravity="center"/>
+        android:text="내 정보"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="15dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/theme"/>
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,7 +35,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_marginVertical="10dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -97,7 +104,7 @@
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="10dp"
                 android:layout_marginTop="10dp"
                 android:background="?android:attr/listDivider"
                 android:backgroundTint="@color/theme"/>
@@ -233,17 +240,20 @@
                 android:backgroundTint="@color/theme"/>
 
             <TextView
+                android:layout_marginHorizontal="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:text="JobAuction"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="13sp"/>
+
             <TextView
+                android:layout_marginHorizontal="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:text="made by JungSuk,JiHun,SangHee"
+                android:text="made by JungSuk, JiHun, SangHee"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="13sp"/>
 

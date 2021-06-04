@@ -10,16 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ajou.auction.Category.ViewPostActivity;
 import com.ajou.auction.R;
+import com.bumptech.glide.Glide;
 
 public class MainFragment extends Fragment {
 
 //    private List<String> items = Arrays.asList("아이폰", "맥북", "아이맥");
     private TextView tv_popular_title;
     private Button btn_popular;
+    private ImageView img_gif;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,9 @@ public class MainFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        img_gif = view.findViewById(R.id.menu1_gif);
+        Glide.with(view).load(R.raw.ads).into(img_gif);
 
         return view;
     }

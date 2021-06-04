@@ -10,14 +10,17 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.ajou.auction.R;
+import com.bumptech.glide.Glide;
 
 public class CategoryFragment extends Fragment {
 
     private LinearLayout btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9;
     private Context mContext;
+    private ImageView img_gif;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +107,8 @@ public class CategoryFragment extends Fragment {
             }
         });
 
+        img_gif = view.findViewById(R.id.menu2_gif);
+        Glide.with(view).load(R.raw.ads2).into(img_gif);
         return view;
     }
 

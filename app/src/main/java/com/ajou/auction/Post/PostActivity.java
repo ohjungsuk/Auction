@@ -7,19 +7,23 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.ajou.auction.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import static com.ajou.auction.BaseActivity.getCurrentTime;
@@ -32,11 +36,13 @@ public class PostActivity extends AppCompatActivity {
     private final String init_time = getCurrentTime();
 
 
+    private String selectedCategory; // 카테고리 이름
+    private Long selectedCategoryNum = Long.valueOf(1); // 서버에 전달할 카테고리 번호 (초기 번호는 1)
     private ImageButton btn_backToMain;
     private ImageView img_upload;
     private Button btn_post_write;
     private EditText et_post_content, et_post_title;
-    private TextView tv_post_choose_date, tv_post_choose_time;
+    private TextView tv_post_choose_date, tv_post_choose_time, tv_category;
     private boolean activity_stack_check = true;
     private int mEndYear, mEndMonth, mEndDay, mEndHour, mEndMinute;
     private String ENDDT = null;
@@ -134,6 +140,37 @@ public class PostActivity extends AppCompatActivity {
                 timePickerDialog.show();
             }
         });
+
+        tv_category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String[] items = new String[] {"의류/잡화", "뷰티", "디지털/가전", "가구/인테리어", "생활/가공식품", "스포츠/레저", "게임/취미", "도서/티켓/음반", "기타/무료나눔"};
+                final int[] selectedIndex = {0};
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(PostActivity.this);
+                dialog.setTitle("카테고리를 선택해주세요.")
+                        .setSingleChoiceItems(items,0
+                                ,new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        selectedIndex[0] = i;
+                                        selectedCategoryNum = Long.valueOf(i + 1);
+
+                                        System.out.println("PostActivity에서 서버에 전달할 카테고리 번호 : " + selectedCategoryNum + "번");
+                                    }
+                                })
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                tv_category.setText(items[selectedIndex[0]]);
+
+                                System.out.println("PostActivity에서 선택된 카테고리 이름  : " + items[selectedIndex[0]]);
+                            }
+                        }).create().show();
+            }
+        });
+
+
     }
 
     public void init() {
@@ -144,6 +181,7 @@ public class PostActivity extends AppCompatActivity {
         img_upload = (ImageView) findViewById(R.id.post_write_btn_img);
         tv_post_choose_date = (TextView) findViewById(R.id.post_tv_date);
         tv_post_choose_time = (TextView) findViewById(R.id.post_tv_time);
+        tv_category = (TextView) findViewById(R.id.post_write_btn_category);
     }
 
     public void btnMover(){
