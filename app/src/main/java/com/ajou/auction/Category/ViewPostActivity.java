@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ajou.auction.R;
@@ -15,8 +16,10 @@ import com.ajou.auction.R;
 public class ViewPostActivity extends AppCompatActivity {
 
     private Button btn_participate, btn_close;
+    private ImageView img_btn_like;
     private TextView tv_best_price;
     private Long boardId, bestPrice;
+    private boolean likeStatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,5 +57,18 @@ public class ViewPostActivity extends AppCompatActivity {
 
         tv_best_price = findViewById(R.id.view_post_tv_best_price);
 
+        img_btn_like = findViewById(R.id.view_post_img_btn_like);
+        img_btn_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!likeStatus) { // 하트 눌렀을 경우
+                    img_btn_like.setImageResource(R.drawable.img_heart);
+                    likeStatus = true;
+                } else { // 하트 취소했을 경우
+                    img_btn_like.setImageResource(R.drawable.img_heart_origin);
+                    likeStatus = false;
+                }
+            }
+        });
     }
 }

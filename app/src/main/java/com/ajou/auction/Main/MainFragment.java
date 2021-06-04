@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.ajou.auction.Category.ViewPostActivity;
 import com.ajou.auction.R;
 
 public class MainFragment extends Fragment {
@@ -52,8 +53,9 @@ public class MainFragment extends Fragment {
         btn_popular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), );
-//                startActivity(intent);
+                // 실시간 인기 매물 api 받아서 호출해야함
+                Intent intent = new Intent(getActivity(), ViewPostActivity.class);
+                startActivity(intent);
             }
         });
 
