@@ -89,6 +89,7 @@ public class LoginActivity extends AppCompatActivity implements LogInActivityVie
                 Log.d("logintest2", String.valueOf(response.getJwt()));
             }else if (response.getJwt() > 0){
                 jwt = response.getJwt();
+                System.out.println("JWT입니다." + jwt);
                 Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                 Log.d("logintest2", String.valueOf(jwt));

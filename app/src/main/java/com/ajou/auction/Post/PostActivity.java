@@ -6,38 +6,40 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.ajou.auction.Category.CategoryListActivity;
+import com.ajou.auction.Post.Interface.PostActivityView;
+import com.ajou.auction.Post.Service.PostService;
 import com.ajou.auction.R;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 import static com.ajou.auction.BaseActivity.getCurrentTime;
 import static com.ajou.auction.BaseActivity.getTodayDate;
+import static com.ajou.auction.ApplicationClass.jwt;
 
-public class PostActivity extends AppCompatActivity implements ImageInterface {
+public class PostActivity extends AppCompatActivity implements ImageInterface, PostActivityView {
 
     private static final String TAG = "Post";
     private final String init_date = getTodayDate();
@@ -50,11 +52,11 @@ public class PostActivity extends AppCompatActivity implements ImageInterface {
     private ImageButton btn_backToMain;
     private ImageView img_upload;
     private Button btn_post_write;
-    private EditText et_post_content, et_post_title;
+    private EditText et_post_content, et_post_title, et_post_price;
     private TextView tv_post_choose_date, tv_post_choose_time, tv_category;
     private boolean activity_stack_check = true;
     private int mEndYear, mEndMonth, mEndDay, mEndHour, mEndMinute;
-    private String ENDDT = null;
+    private String ENDDT = null, final_date = null;
 
     private FirebaseFirestore db;
     private FirebaseUser firebaseUser;
@@ -111,6 +113,8 @@ public class PostActivity extends AppCompatActivity implements ImageInterface {
                         System.out.println("선택된 마감 날짜 : " + enddt);
                         tv_post_choose_date.setText(enddt);
 
+                        final_date = enddt;
+
                         ENDDT = enddt;
                     }
                 }, mYear, mMonth, mDay);
@@ -148,11 +152,14 @@ public class PostActivity extends AppCompatActivity implements ImageInterface {
 //                        endtime = mEndHour + ":" + mEndMinute;
                         System.out.println("선택된 마감 시간 : " + endtime);
                         tv_post_choose_time.setText(endtime);
+
+                        final_date = final_date + " " + endtime;
                     }
                 }, mEndHour, mEndMinute, true);
                 timePickerDialog.show();
             }
         });
+
 
         tv_category.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,12 +190,12 @@ public class PostActivity extends AppCompatActivity implements ImageInterface {
             }
         });
 
-
     }
 
     public void init() {
         et_post_content = (EditText) findViewById(R.id.post_write_et_content);
         et_post_title = (EditText) findViewById(R.id.post_write_et_title);
+        et_post_price = (EditText) findViewById(R.id.post_write_et_price);
         btn_post_write = (Button) findViewById(R.id.post_write_btn_complete);
         btn_backToMain = (ImageButton) findViewById(R.id.post_write_btn_close);
         img_upload = (ImageView) findViewById(R.id.post_write_btn_img);
@@ -221,7 +228,23 @@ public class PostActivity extends AppCompatActivity implements ImageInterface {
         btn_post_write.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                post();
+                if (final_date == null) {
+                    final_date = init_date + " " + init_time;
+                }
+
+                System.out.println("test    " + final_date + " " + selectedCategoryNum + " " + et_post_content.getText().toString() + " " + Long.valueOf(jwt) + " " + img_uri + " " + et_post_price.getText().toString() + "  " + et_post_title.getText().toString());
+                tryPost(final_date, selectedCategoryNum, et_post_content.getText().toString(), Long.valueOf(jwt), img_uri, Long.valueOf(String.valueOf(et_post_price.getText())), et_post_title.getText().toString());
+
+                SharedPreferences sharedPreferences = getSharedPreferences("categoryId", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                System.out.println("longlong" + selectedCategoryNum);
+                editor.putLong("categoryId", selectedCategoryNum);
+                editor.apply();
+
+                Intent intent = new Intent(getApplicationContext(), CategoryListActivity.class);
+                startActivity(intent);
+                finish();
+//                post();
             }
         });
         img_upload.setOnClickListener(new View.OnClickListener() {
@@ -287,5 +310,21 @@ public class PostActivity extends AppCompatActivity implements ImageInterface {
     @Override
     public void uploadFireBaseFailure() {
         Toast.makeText(getApplicationContext(), "firebase upload fail ", Toast.LENGTH_SHORT).show();
+    }
+
+    private void tryPost(String auctionDeadLine, Long category, String content, Long jwt, String s3imageURL, Long startPrice, String title) {
+        final PostService postService = new PostService(this);
+        postService.postUploadPost(auctionDeadLine, category, content, jwt, s3imageURL, startPrice, title);
+        System.out.println("try POST");
+    }
+
+    @Override
+    public void postSuccess(String text) {
+        System.out.println("PostSuccess");
+    }
+
+    @Override
+    public void postFailure(String message) {
+        System.out.println("PostFailure");
     }
 }
