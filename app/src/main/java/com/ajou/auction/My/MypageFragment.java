@@ -22,6 +22,8 @@ import com.ajou.auction.Login.LoginActivity;
 import com.ajou.auction.Login.Services.SignOutService;
 import com.ajou.auction.Login.SignUpActivity;
 import com.ajou.auction.MainActivity;
+import com.ajou.auction.Profile.FollowerActivity;
+import com.ajou.auction.Profile.ProfileReviewActivity;
 import com.ajou.auction.R;
 
 import static com.ajou.auction.ApplicationClass.jwt;
@@ -43,10 +45,26 @@ public class MypageFragment extends Fragment implements SignOutActivityView {
         init(view);
         btn_mover(view);
 
+        btn_follower.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), FollowerActivity.class);
+                startActivity(intent);
+            }
+        });
+
         btn_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), LikedListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ProfileReviewActivity.class);
                 startActivity(intent);
             }
         });

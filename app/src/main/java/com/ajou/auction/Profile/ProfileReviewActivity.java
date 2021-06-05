@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.ajou.auction.R;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class ProfileReviewActivity extends AppCompatActivity {
 
     private ArrayList<ProfileReviewItem> dataList = new ArrayList<>();
-    private Button btn_write;
+    private Button btn_write, btn_close;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,13 @@ public class ProfileReviewActivity extends AppCompatActivity {
             }
         });
 
+        btn_close = findViewById(R.id.profile_review_btn_close);
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         for (int i = 0; i < 10; i++) {
             dataList.add(new ProfileReviewItem("", "뀨", "너무 좋았어염"));

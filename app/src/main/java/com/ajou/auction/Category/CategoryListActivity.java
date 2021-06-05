@@ -14,6 +14,8 @@ import com.ajou.auction.R;
 
 import java.util.ArrayList;
 
+import static com.ajou.auction.Profile.ViewProfileActivity.forName;
+
 public class CategoryListActivity extends AppCompatActivity {
 
     private Long categoryId;
@@ -41,7 +43,13 @@ public class CategoryListActivity extends AppCompatActivity {
             }
         });
 
-        if (categoryId == 1) {
+        if (forName) {
+            sharedPreferences = getSharedPreferences("categoryName", MODE_PRIVATE);
+            String name = sharedPreferences.getString("categoryName", "");
+            System.out.println("Category 이름 확인 " + name);
+            categoryName = name;
+            forName = false;
+        } else if (categoryId == 1) {
             categoryName = "의류/잡화";
         } else if (categoryId == 2) {
             categoryName = "뷰티";

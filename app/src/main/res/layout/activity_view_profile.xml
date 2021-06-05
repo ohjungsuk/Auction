@@ -32,7 +32,7 @@
                 tools:ignore="RtlSymmetry">
 
                 <Button
-                    android:id="@+id/view_profile__btn_close"
+                    android:id="@+id/view_profile_btn_close"
                     android:clickable="true"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:layout_marginStart="15dp"
-                    android:layout_toEndOf="@+id/view_profile__btn_close"
+                    android:layout_toEndOf="@+id/view_profile_btn_close"
                     android:orientation="vertical" >
 
                     <TextView

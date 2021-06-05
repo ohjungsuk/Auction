@@ -18,7 +18,8 @@ public class ViewProfileActivity extends AppCompatActivity {
 
     private String userId;
     private TextView tv_id, tv_jjim, tv_selling, tv_review;
-    private Button btn_follow, btn_unfollow;
+    private Button btn_follow, btn_unfollow, btn_close;
+    public static boolean forName = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         tv_jjim.setOnClickListener(new View.OnClickListener() { // 찜한 게시글
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CategoryListActivity.class);
-                startActivity(intent);
+                getTitle("찜한 게시글");
             }
         });
 
@@ -45,8 +45,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         tv_selling.setOnClickListener(new View.OnClickListener() { // 판매 상품
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), CategoryListActivity.class);
-                startActivity(intent);
+                getTitle("판매 상품");
             }
         });
 
@@ -60,9 +59,41 @@ public class ViewProfileActivity extends AppCompatActivity {
         });
 
         btn_follow = findViewById(R.id.view_profile_btn_follow);
+        btn_follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         btn_unfollow = findViewById(R.id.view_profile_btn_unfollow);
+        btn_unfollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
 
+        btn_close = findViewById(R.id.view_profile_btn_close);
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+    }
+
+    private void getTitle(String title) {
+        SharedPreferences sharedPreferences = getSharedPreferences("categoryName", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        System.out.println("String  " + title);
+        editor.putString("categoryName", title);
+        editor.apply();
+        forName = true;
+
+        Intent intent = new Intent(getApplicationContext(), CategoryListActivity.class);
+        startActivity(intent);
     }
 }
