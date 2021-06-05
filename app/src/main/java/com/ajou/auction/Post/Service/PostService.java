@@ -18,13 +18,6 @@ public class PostService {
         this.mPostActivityView = mPostActivityView;
     }
 
-
-    /*
-
-    LogInResponse logInResponse = response.body();
-                mLogInActivityView.validateSuccess(logInResponse);
-                Log.d("debug_1", "STUDENT");
-     */
     // 서버 통신
     public void postUploadPost(final String auctionDeadLine, final Long category, final String content, final Long jwt, final String s3imageURL, final Long startPrice, final String title) {
         final PostRetrofitInterface postRetrofitInterface = getRetrofit2().create(PostRetrofitInterface.class);
@@ -41,6 +34,7 @@ public class PostService {
                 else if (postResponse.getBoardID() > 0) {
                     System.out.println("post 2");
                     mPostActivityView.postSuccess(postResponse.getBoardID().toString());
+                    System.out.println("Board ID " + postResponse.getBoardID().toString());
                 }
                 else {
                     System.out.println("post 3 " + postResponse.getBoardID());
