@@ -9,15 +9,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.ajou.auction.Profile.ViewProfileActivity;
 import com.ajou.auction.R;
 
 public class ViewPostActivity extends AppCompatActivity {
 
-    private Button btn_participate, btn_close;
+    private RelativeLayout relativeLayout;
+    private Button btn_participate, btn_close, btn_modify, btn_delete;
     private ImageView img_btn_like;
-    private TextView tv_best_price;
+    private TextView tv_best_price, tv_id;
     private Long boardId, bestPrice;
     private boolean likeStatus = false;
 
@@ -70,5 +73,27 @@ public class ViewPostActivity extends AppCompatActivity {
                 }
             }
         });
+
+        tv_id = findViewById(R.id.view_post_tv_id);
+
+        relativeLayout = findViewById(R.id.view_post_profileLayout);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                String id = tv_id.getText().toString();
+                editor.putString("userId", id);
+                editor.apply();
+                System.out.println("User Id 확인 " + id);
+
+                Intent intent = new Intent(getApplicationContext(), ViewProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_modify = findViewById(R.id.view_post_btn_modify);
+
+        btn_delete = findViewById(R.id.view_post_btn_delete);
     }
 }

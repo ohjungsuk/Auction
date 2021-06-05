@@ -13,6 +13,18 @@
         android:theme="@style/Theme.Auction"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Profile.WriteReviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
+            android:name=".Profile.ProfileReviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
+            android:name=".Profile.ViewProfileActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.NoActionBar" />
+        <activity
             android:name=".Main.SearchListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Design.NoActionBar" />
