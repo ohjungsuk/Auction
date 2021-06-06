@@ -23,10 +23,10 @@ import java.util.ArrayList;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
-    private final ArrayList<CategoryListItem> mDataList;
+    private final ArrayList<RecyclerPostListItem> mDataList;
     private Context mContext;
 
-    public CategoryAdapter(ArrayList<CategoryListItem> mDataList) {
+    public CategoryAdapter(ArrayList<RecyclerPostListItem> mDataList) {
         this.mDataList = mDataList;
     }
 
@@ -34,20 +34,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_postlist, parent, false);
-
-
-
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CategoryListItem item = mDataList.get(position);
+        RecyclerPostListItem item = mDataList.get(position);
         
         //Glide.with(mContext).load(item.getImg()).into(holder.img);
         holder.tv_title.setText(item.getTitle());
-        holder.tv_endDate.setText(item.getEndDate());
-        holder.tv_price.setText(item.getPrice());
+        holder.tv_endDate.setText(item.getAuctionDeadline());
+        holder.tv_price.setText(item.getMaxBettingPrice().toString());
 
         Animation mAnimation = new AlphaAnimation(1, 0);
         mAnimation.setDuration(700);
@@ -58,9 +55,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.tv_price.startAnimation(mAnimation);
         holder.tv_price.setTextColor(Color.RED);
 
+        Glide.with(holder.itemView).load(item.getS3imageURL()).into(holder.img);
 
-
-        holder.tv_likeCnt.setText(item.getLikeCnt());
+        holder.tv_likeCnt.setText(item.getLikeNumber().toString());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,13 +84,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        //ImageView img;
+        ImageView img;
         TextView tv_title, tv_endDate, tv_price, tv_likeCnt;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            //img = itemView.findViewById(R.id.postlist_img);
+            img = itemView.findViewById(R.id.postlist_img);
             tv_title = itemView.findViewById(R.id.postlist_title);
             tv_endDate = itemView.findViewById(R.id.postlist_date);
             tv_price = itemView.findViewById(R.id.postlist_price);

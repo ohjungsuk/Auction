@@ -37,8 +37,7 @@ import com.ajou.auction.Post.Model.PostS3ImageResponse;
 import com.ajou.auction.Post.Service.PostS3ImageService;
 import com.ajou.auction.Post.Service.PostService;
 import com.ajou.auction.R;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
+
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -131,8 +130,8 @@ public class PostActivity extends AppCompatActivity implements PostS3ImageActivi
     private int mEndYear, mEndMonth, mEndDay, mEndHour, mEndMinute;
     private String ENDDT = null, final_date = null;
 
-    private FirebaseFirestore db;
-    private FirebaseUser firebaseUser;
+//    private FirebaseFirestore db;
+//    private FirebaseUser firebaseUser;
     private Uri gettedImgUri;
 
     final int GET_GALLERY_IMAGE = 200;
@@ -314,7 +313,7 @@ public class PostActivity extends AppCompatActivity implements PostS3ImageActivi
                                 }
 
                                 //System.out.println("test    " + final_date + " " + selectedCategoryNum + " " + et_post_content.getText().toString() + " " + Long.valueOf(jwt) + " " + img_uri + " " + et_post_price.getText().toString() + "  " + et_post_title.getText().toString());
-                                tryPost(final_date, selectedCategoryNum, et_post_content.getText().toString(), Long.valueOf(jwt), img_idx7_3, Long.valueOf(String.valueOf(et_post_price.getText())), et_post_title.getText().toString());
+                                tryPost(final_date, selectedCategoryNum, et_post_content.getText().toString(), Long.valueOf(jwt), img_idx4_1, Long.valueOf(String.valueOf(et_post_price.getText())), et_post_title.getText().toString());
                                 SharedPreferences sharedPreferences = getSharedPreferences("categoryId", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
                                 System.out.println("longlong" + selectedCategoryNum);

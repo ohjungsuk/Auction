@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:textColor="@color/black"
-                    android:text="최고가"
+                    android:text="현재 최고가"
                     android:textSize="10sp" />
 
                 <TextView

@@ -27,10 +27,12 @@ import static com.ajou.auction.Profile.ViewProfileActivity.forName;
 public class CategoryListActivity extends AppCompatActivity implements GetAllBoardView {
 
     private Long categoryId;
-    private ArrayList<CategoryListItem> dataList = new ArrayList<>();
+    private ArrayList<RecyclerPostListItem> dataList = new ArrayList<>();
     private Button btn_close;
     private TextView tv_category_name;
     private String categoryName = "";
+
+    CategoryAdapter categoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
             @Override
             public void onRefresh() {
                 Toast.makeText(CategoryListActivity.this, "새로고침", Toast.LENGTH_LONG).show();
+                getRecyclerView();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -89,19 +92,21 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
         tv_category_name = findViewById(R.id.category_tv_name);
         tv_category_name.setText(categoryName);
 
+        //getRecyclerView();
 
-        for (int i = 0; i < 10; i++) {
-            dataList.add(new CategoryListItem("", "제목입니당", "2021-06-11 23:59", "30000", "5"));
-        }
 
-        RecyclerView recyclerView = findViewById(R.id.category_list_recyclerview);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+//        for (int i = 0; i < 10; i++) {
+//            dataList.add(new CategoryListItem("", "제목입니당", "2021-06-11 23:59", "30000", "5"));
+//        }
 
-        CategoryAdapter categoryAdapter = new CategoryAdapter(dataList);
-        recyclerView.setAdapter(categoryAdapter);
-        recyclerView.getAdapter().notifyDataSetChanged();
+//        RecyclerView recyclerView = findViewById(R.id.category_list_recyclerview);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setHasFixedSize(true);
+//
+//        CategoryAdapter categoryAdapter = new CategoryAdapter(dataList);
+//        recyclerView.setAdapter(categoryAdapter);
+//        recyclerView.getAdapter().notifyDataSetChanged();
     }
 
     @Override
@@ -110,8 +115,29 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
         getRecyclerView();
     }
 
+//    private void addItem(String title,String maxBettingPrice,String s3imageURL,String auctionDeadline,String likeNumber){
+//        RecyclerPostListItem item = new RecyclerPostListItem();
+//
+//        item.setTitle(title);
+//        item.setMaxBettingPrice(maxBettingPrice);
+//        item.setS3imageURL(s3imageURL);
+//        item.setAuctionDeadline(auctionDeadline);
+//        item.setLikeNumber(likeNumber);
+//        Log.d("getboard","additem");
+//    }
+
     private void getRecyclerView(){
         new GetAllBoardService(CategoryListActivity.this).getAllBoard(jwt);
+        ArrayList<RecyclerPostListItem> recyclerPostListItems = new ArrayList<RecyclerPostListItem>();
+
+        RecyclerView recyclerView = findViewById(R.id.category_list_recyclerview);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+
+        categoryAdapter = new CategoryAdapter(dataList);
+        recyclerView.setAdapter(categoryAdapter);
+        recyclerView.getAdapter().notifyDataSetChanged();
     }
 
     @Override
@@ -120,13 +146,35 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
         ArrayList<BoardListInfos> boardListInfos = (ArrayList<BoardListInfos>)response.getBoardList();
         if(response != null){
             String title = null;
+            String price = null;
+            String image = null;
+            String deadline = null;
+            String likecnt = null;
+
             for (BoardListInfos boardListInfo : boardListInfos){
-                title = boardListInfo.getTitle();
+                if(categoryId == boardListInfo.getCategory()){
+                    title = boardListInfo.getTitle();
+                    price = boardListInfo.getMaxBettingPrice().toString();
+                    image = boardListInfo.getS3imageURL();
+                    deadline = boardListInfo.getAuctionDeadline();
+                    likecnt = boardListInfo.getLikeNumber().toString();
+
+                    //addItem(boardListInfo.getTitle(),boardListInfo.getMaxBettingPrice(),boardListInfo.getS3imageURL(),boardListInfo.getAuctionDeadline(),boardListInfo.getLikeNumber());
+                    dataList.add(new RecyclerPostListItem(
+                        title,price,image,deadline,likecnt
+                    ));
+                    Log.d("getboard",title);
+                    Log.d("getboard",price);
+                    Log.d("getboard",image);
+                    Log.d("getboard",deadline);
+                    Log.d("getboard",likecnt);
+                }
             }
-            Log.d("getboard","good"+title);
+            //Log.d("getboard","good"+title);
         }else{
             Log.d("getboard","null");
         }
+        categoryAdapter.notifyDataSetChanged();
     }
 
     @Override
