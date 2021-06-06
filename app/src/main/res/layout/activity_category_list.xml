@@ -8,7 +8,6 @@
     android:background="@android:color/white"
     tools:context=".Category.CategoryListActivity">
 
-
     <LinearLayout
         android:descendantFocusability="blocksDescendants"
         android:layout_width="match_parent"
@@ -67,13 +66,19 @@
 
         </androidx.appcompat.widget.Toolbar>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/category_list_recyclerview"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/category_list_swipelayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="15dp"
-            tools:listitem="@layout/item_postlist"/>
+            android:layout_height="670dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/category_list_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp"
+                tools:listitem="@layout/item_postlist" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 

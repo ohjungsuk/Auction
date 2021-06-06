@@ -200,7 +200,7 @@
                 android:orientation="horizontal">
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
                     <TextView
@@ -216,15 +216,24 @@
                         android:textSize="12sp"
                         android:text="경매에 올릴 사진을 선택해주세요!"
                         android:textColor="@android:color/darker_gray"/>
+
+                    <ImageButton
+                        android:id="@+id/btn_addImage"
+                        android:layout_width="35dp"
+                        android:layout_height="20dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:stateListAnimator="@null"
+                        android:background="@drawable/pluss" />
                 </LinearLayout>
 
 
                 <ImageView
                     android:id="@+id/post_write_btn_img"
-                    android:background="@drawable/img_img"
+
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:scaleType="center"
+                    android:scaleType="fitXY"
                     android:clickable="true"/>
                 <ImageView
                     android:id="@+id/post_set_img"

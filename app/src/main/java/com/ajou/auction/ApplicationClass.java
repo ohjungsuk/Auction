@@ -48,23 +48,23 @@ public class ApplicationClass extends Application {
         }
     }
 
-    public static Retrofit getRetrofit() {
-        if (retrofit == null) {
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .readTimeout(5000, TimeUnit.MILLISECONDS)
-                    .connectTimeout(5000, TimeUnit.MILLISECONDS)
-                    .addNetworkInterceptor(new XAccessTokenInterCeptor()) // JWT 자동 헤더 전송
-                    .build();
-
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-
-        return retrofit;
-    }
+//    public static Retrofit getRetrofit() {
+//        if (retrofit == null) {
+//            OkHttpClient client = new OkHttpClient.Builder()
+//                    .readTimeout(5000, TimeUnit.MILLISECONDS)
+//                    .connectTimeout(5000, TimeUnit.MILLISECONDS)
+//                    .addNetworkInterceptor(new XAccessTokenInterCeptor()) // JWT 자동 헤더 전송
+//                    .build();
+//
+//            retrofit = new Retrofit.Builder()
+//                    .baseUrl(BASE_URL)
+//                    .client(client)
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .build();
+//        }
+//
+//        return retrofit;
+//    }
     public static Retrofit getRetrofit2() {
         if (retrofit == null) {
             OkHttpClient client = new OkHttpClient.Builder()

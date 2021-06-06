@@ -3,20 +3,28 @@ package com.ajou.auction.Category;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ajou.auction.Category.Interface.GetAllBoardView;
+import com.ajou.auction.Category.Model.BoardListInfos;
+import com.ajou.auction.Category.Model.GetAllBoardResponse;
+import com.ajou.auction.Category.Service.GetAllBoardService;
 import com.ajou.auction.R;
 
 import java.util.ArrayList;
 
+import static com.ajou.auction.ApplicationClass.jwt;
 import static com.ajou.auction.Profile.ViewProfileActivity.forName;
 
-public class CategoryListActivity extends AppCompatActivity {
+public class CategoryListActivity extends AppCompatActivity implements GetAllBoardView {
 
     private Long categoryId;
     private ArrayList<CategoryListItem> dataList = new ArrayList<>();
@@ -28,6 +36,15 @@ public class CategoryListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
+
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.category_list_swipelayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(CategoryListActivity.this, "새로고침", Toast.LENGTH_LONG).show();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         SharedPreferences sharedPreferences = getSharedPreferences("categoryId", MODE_PRIVATE);
         categoryId = sharedPreferences.getLong("categoryId", 0);
@@ -85,5 +102,35 @@ public class CategoryListActivity extends AppCompatActivity {
         CategoryAdapter categoryAdapter = new CategoryAdapter(dataList);
         recyclerView.setAdapter(categoryAdapter);
         recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getRecyclerView();
+    }
+
+    private void getRecyclerView(){
+        new GetAllBoardService(CategoryListActivity.this).getAllBoard(jwt);
+    }
+
+    @Override
+    public void getAllBoardSuccess(GetAllBoardResponse response) {
+
+        ArrayList<BoardListInfos> boardListInfos = (ArrayList<BoardListInfos>)response.getBoardList();
+        if(response != null){
+            String title = null;
+            for (BoardListInfos boardListInfo : boardListInfos){
+                title = boardListInfo.getTitle();
+            }
+            Log.d("getboard","good"+title);
+        }else{
+            Log.d("getboard","null");
+        }
+    }
+
+    @Override
+    public void getAllBoardFailure() {
+
     }
 }
