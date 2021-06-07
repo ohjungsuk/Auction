@@ -31,7 +31,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/icon_auction2"
                 android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 app:layout_collapseMode="parallax" />
 
             <View
@@ -42,8 +42,9 @@
                 android:fitsSystemWindows="true" />
 
             <View
+                android:id="@+id/s3Image"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="180dp"
                 android:layout_gravity="bottom"
                 android:background="@drawable/scrim" />
 
@@ -79,7 +80,8 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:paddingBottom="60dp">
 
@@ -91,7 +93,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal" >
 
                 <RelativeLayout
@@ -103,11 +105,11 @@
                     android:layout_height="wrap_content" >
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:src="@drawable/icon_auction2"
+                        android:src="@drawable/img_profile"
                         android:id="@+id/view_post_img_user"
-                        android:layout_margin="10dp"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
+                        android:layout_margin="20dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
                         android:scaleType="centerCrop" />
 
                     <TextView
@@ -125,26 +127,35 @@
                 </RelativeLayout>
 
                 <Button
-                    android:padding="15dp"
+                    android:visibility="gone"
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/view_post_btn_modify"
-                    android:layout_marginVertical="15dp"
+                    android:layout_width="6dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_marginVertical="15dp"
+                    android:layout_weight="1"
                     android:background="@drawable/button1"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="10dp"
                     android:text="수정"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <Button
+                    android:visibility="gone"
+                    android:layout_gravity="center_vertical"
                     android:id="@+id/view_post_btn_delete"
                     android:layout_marginVertical="15dp"
                     android:layout_marginEnd="15dp"
-                    android:layout_weight="2"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_width="6dp"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:padding="10dp"
                     android:background="@drawable/button1"
                     android:text="삭제"
                     android:textColor="@color/white"
@@ -161,9 +172,10 @@
                 android:background="#F1F2F4"/>
 
             <RelativeLayout
-                android:layout_margin="10dp"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/view_post_tv_title"
@@ -172,8 +184,18 @@
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="15dp"
                     android:text="널디 트랙탑" />
+
+                <TextView
+                    android:layout_below="@+id/view_post_tv_title"
+                    android:id="@+id/category_post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="카테고리"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="@android:color/darker_gray"/>
 
                 <TextView
                     android:layout_below="@+id/view_post_tv_title"
@@ -181,17 +203,49 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:layout_marginBottom="10dp"
+                    android:textSize="13sp"
+                    android:layout_marginStart="60dp"
+                    android:layout_marginBottom="15dp"
                     android:text="의류/잡화" />
+
+                <TextView
+                    android:layout_below="@+id/view_post_tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="13sp"
+                    android:layout_marginStart="280dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="참여자" />
+
+                <TextView
+                    android:layout_below="@+id/view_post_tv_title"
+                    android:id="@+id/view_post_tv_totalbetter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:layout_marginStart="330dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="00" />
+
+                <TextView
+                    android:layout_below="@+id/view_post_tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="13sp"
+                    android:layout_marginStart="350dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="명" />
 
                 <TextView
                     android:layout_below="@+id/view_post_tv_category"
                     android:id="@+id/view_post_tv_date_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="13sp"
                     android:layout_marginBottom="10dp"
                     android:text="마감일" />
 
@@ -202,24 +256,41 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="13sp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="20dp"
                     android:text="2021-06-11 23:59" />
 
-                <TextView
+                <View
+                    android:id="@+id/view"
                     android:layout_below="@+id/view_post_tv_date_label"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F1F2F4"/>
+
+                <TextView
+                    android:id="@+id/txtview"
+                    android:layout_marginTop="15dp"
+                    android:layout_below="@+id/view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/darker_gray"
+                    android:text="상품설명"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:layout_below="@+id/txtview"
                     android:id="@+id/view_post_tv_content"
+                    android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="100sp"
-                    android:text="손목이 너무아파서 힘들어요 그만하고싶어요"/>
+                    android:textSize="15sp"
+                    android:text=""/>
 
 
             </RelativeLayout>
-
-
 
 
         </LinearLayout>
@@ -284,27 +355,27 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:textSize="16sp"
-                    android:text="30000"
+                    android:text="0"
                     android:layout_marginStart="10dp"
                     android:textColor="@color/theme" />
 
                 <TextView
                     android:layout_marginTop="10dp"
-                    android:id="@+id/view_post_tv_people_count_label"
+                    android:id="@+id/view_post_tv_start_price"
                     android:layout_below="@+id/view_post_tv_best_price_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:textSize="16sp"
-                    android:text="참여 인원 수"
+                    android:text="경매 시작가"
                     android:layout_marginStart="10dp"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:layout_marginTop="10dp"
-                    android:id="@+id/view_post_tv_people_count"
+                    android:id="@+id/view_post_tv_start_price_number"
                     android:layout_below="@+id/view_post_tv_best_price_label"
-                    android:layout_toEndOf="@+id/view_post_tv_people_count_label"
+                    android:layout_toEndOf="@+id/view_post_tv_start_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -323,6 +394,7 @@
             android:layout_weight="4">
 
             <Button
+                android:visibility="visible"
                 android:id="@+id/view_post_btn_participate"
                 android:layout_margin="15dp"
                 android:layout_width="match_parent"
@@ -333,6 +405,29 @@
                 android:textStyle="bold"
                 android:textSize="15sp" />
 
+            <Button
+                android:visibility="gone"
+                android:id="@+id/view_post_btn_endMyBetting"
+                android:layout_margin="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button1"
+                android:text="경매 낙찰하기"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="15sp" />
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/view_post_btn_cancelBetting"
+                android:layout_margin="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/button1"
+                android:text="베팅 취소하기"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="15sp" />
         </RelativeLayout>
 
     </LinearLayout>

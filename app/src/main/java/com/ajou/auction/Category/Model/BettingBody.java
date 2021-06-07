@@ -3,7 +3,10 @@ package com.ajou.auction.Category.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LikeAddBoardBody {
+public class BettingBody {
+    @SerializedName("bettingPrice")
+    @Expose
+    private Long bettingPrice;
     @SerializedName("boardId")
     @Expose
     private Long boardId;
@@ -11,9 +14,18 @@ public class LikeAddBoardBody {
     @Expose
     private Long jwt;
 
-    public LikeAddBoardBody(Long boardId, Long jwt) {
+    public BettingBody(Long bettingPrice, Long boardId, Long jwt) {
+        this.bettingPrice = bettingPrice;
         this.boardId = boardId;
         this.jwt = jwt;
+    }
+
+    public Long getBettingPrice() {
+        return bettingPrice;
+    }
+
+    public void setBettingPrice(Long bettingPrice) {
+        this.bettingPrice = bettingPrice;
     }
 
     public Long getBoardId() {
@@ -23,7 +35,6 @@ public class LikeAddBoardBody {
     public void setBoardId(Long boardId) {
         this.boardId = boardId;
     }
-
 
     public Long getJwt() {
         return jwt;

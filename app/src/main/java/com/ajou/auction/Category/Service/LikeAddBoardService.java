@@ -21,12 +21,13 @@ public class LikeAddBoardService {
         mLikeBoardView = likeAddBoardView;
     }
 
-    public void likeAddBoard(Long boardId,Long jwt){
+    public void likeAddBoard(Long jwt,Long boardId){
         final LikeAddBoardRetrofitInterface likeAddBoardRetrofitInterface = ApplicationClass.getRetrofit2().create(LikeAddBoardRetrofitInterface.class);
-        likeAddBoardRetrofitInterface.likeAddBoard(new LikeAddBoardBody(boardId, jwt)).enqueue(new Callback<LikeAddBoardResponse>() {
+        likeAddBoardRetrofitInterface.likeAddBoard(jwt,boardId).enqueue(new Callback<LikeAddBoardResponse>() {
             @Override
             public void onResponse(Call<LikeAddBoardResponse> call, Response<LikeAddBoardResponse> response) {
-                mLikeBoardView.likeAddBoardSuccess();
+                LikeAddBoardResponse likeAddBoardResponse = response.body();
+                mLikeBoardView.likeAddBoardSuccess(likeAddBoardResponse);
                 Log.d("likeadd", "success");
             }
 

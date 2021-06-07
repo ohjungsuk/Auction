@@ -1,6 +1,7 @@
 package com.ajou.auction.Category.Service;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ajou.auction.ApplicationClass;
 import com.ajou.auction.Category.Interface.DeleteMyBoardRetrofitInterface;
@@ -20,9 +21,9 @@ public class UpdateMyBoardService {
         mUpdateMyBoardView = updateMyBoardView;
     }
 
-    public void updateMyBoard(Long boardId,String completion,String content, Long jwt){
+    public void updateMyBoard(Long boardId,String content, Long jwt){
         final UpdateMyBoardRetrofitInterface updateMyBoardRetrofitInterface = ApplicationClass.getRetrofit2().create(UpdateMyBoardRetrofitInterface.class);
-        updateMyBoardRetrofitInterface.updateMyBoard(new UpdateMyBoardBody(boardId,completion,content,jwt)).enqueue(new Callback<Void>() {
+        updateMyBoardRetrofitInterface.updateMyBoard(new UpdateMyBoardBody(boardId,content,jwt)).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 mUpdateMyBoardView.updateMyBoardSuccess();

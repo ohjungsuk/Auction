@@ -6,13 +6,15 @@ public class RecyclerPostListItem {
     private String s3imageURL;
     private String auctionDeadline;
     private String likeNumber;
+    private String boardId;
 
-    public RecyclerPostListItem(String title, String maxBettingPrice, String s3imageURL, String auctionDeadline, String likeNumber) {
+    public RecyclerPostListItem(String title, String maxBettingPrice, String s3imageURL, String auctionDeadline, String likeNumber, String boardId) {
         this.title = title;
         this.maxBettingPrice = maxBettingPrice;
         this.s3imageURL = s3imageURL;
         this.auctionDeadline = auctionDeadline;
         this.likeNumber = likeNumber;
+        this.boardId = boardId;
     }
 
     public String getTitle() {
@@ -53,5 +55,13 @@ public class RecyclerPostListItem {
 
     public void setLikeNumber(String likeNumber) {
         this.likeNumber = likeNumber;
+    }
+
+    public String getBoardId() {
+        return boardId;
+    }
+
+    public void setBoardId(String boardId) {
+        this.boardId = boardId;
     }
 }

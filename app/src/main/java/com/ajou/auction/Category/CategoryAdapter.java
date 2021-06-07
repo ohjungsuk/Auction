@@ -21,12 +21,14 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> implements OnBoardItemClickListener{
 
-    private final ArrayList<RecyclerPostListItem> mDataList;
+    private final ArrayList<ViewPostListItem> mDataList;
     private Context mContext;
+    OnBoardItemClickListener listener;
 
-    public CategoryAdapter(ArrayList<RecyclerPostListItem> mDataList) {
+
+    public CategoryAdapter(ArrayList<ViewPostListItem> mDataList) {
         this.mDataList = mDataList;
     }
 
@@ -34,12 +36,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_postlist, parent, false);
-        return new ViewHolder(view);
+        return new CategoryAdapter.ViewHolder(view,this);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        RecyclerPostListItem item = mDataList.get(position);
+        ViewPostListItem item = mDataList.get(position);
         
         //Glide.with(mContext).load(item.getImg()).into(holder.img);
         holder.tv_title.setText(item.getTitle());
@@ -56,26 +58,25 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         holder.tv_price.setTextColor(Color.RED);
 
         Glide.with(holder.itemView).load(item.getS3imageURL()).into(holder.img);
-
         holder.tv_likeCnt.setText(item.getLikeNumber().toString());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mContext = view.getContext();
-
-//                SharedPreferences sharedPreferences = mContext.getSharedPreferences("boardId", Context.MODE_PRIVATE);
-//                SharedPreferences.Editor editor = sharedPreferences.edit();
-//                System.out.println("position " + position);
-//                Long boardId = Long.valueOf(position); // boardId 받아서 저장해줘야함
-//                System.out.println("longlong " + boardId);
-//                editor.putLong("boardId", boardId);
-//                editor.apply();
-                // 여기서는 그냥 보여주기만..
-
-                Intent intent = new Intent(mContext, ViewPostActivity.class);
-                mContext.startActivity(intent);
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mContext = view.getContext();
+//
+////                SharedPreferences sharedPreferences = mContext.getSharedPreferences("boardId", Context.MODE_PRIVATE);
+////                SharedPreferences.Editor editor = sharedPreferences.edit();
+////                System.out.println("position " + position);
+////                Long boardId = Long.valueOf(position); // boardId 받아서 저장해줘야함
+////                System.out.println("longlong " + boardId);
+////                editor.putLong("boardId", boardId);
+////                editor.apply();
+//                // 여기서는 그냥 보여주기만..
+//
+//                Intent intent = new Intent(mContext, ViewPostActivity.class);
+//                mContext.startActivity(intent);
+//            }
+//        });
     }
 
     @Override
@@ -83,11 +84,22 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return mDataList.size();
     }
 
+    @Override
+    public void onBoardClick(ViewHolder holder, View view, int position) {
+        if(listener != null){
+            listener.onBoardClick(holder,view,position);
+        }
+    }
+
+    public void setOnBoardClicklistener(OnBoardItemClickListener listener){
+        this.listener = listener;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
         TextView tv_title, tv_endDate, tv_price, tv_likeCnt;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, final OnBoardItemClickListener listener) {
             super(itemView);
 
             img = itemView.findViewById(R.id.postlist_img);
@@ -95,6 +107,26 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             tv_endDate = itemView.findViewById(R.id.postlist_date);
             tv_price = itemView.findViewById(R.id.postlist_price);
             tv_likeCnt = itemView.findViewById(R.id.postlist_likeCnt);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int pos = getAdapterPosition();
+                    if(listener != null){
+                        listener.onBoardClick(ViewHolder.this, view, pos);
+                    }
+                }
+            });
         }
+    }
+    public void clearData(){
+        mDataList.clear();
+    }
+
+    public ViewPostListItem getItem(int position){
+        return mDataList.get(position);
+    }
+    public void setItem(int position, ViewPostListItem item){
+        mDataList.set(position,item);
     }
 }

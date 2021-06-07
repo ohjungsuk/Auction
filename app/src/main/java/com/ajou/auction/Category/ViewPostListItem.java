@@ -1,23 +1,21 @@
-package com.ajou.auction.Category.Model;
+package com.ajou.auction.Category;
 
+import com.ajou.auction.Category.Model.BettingInfos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class BoardListInfos {
+public class ViewPostListItem {
     @SerializedName("auctionDeadline")
     @Expose
     private String auctionDeadline;
-    @SerializedName("bettingInfos")
-    @Expose
-    private List<BettingInfos> bettingInfos = null;
     @SerializedName("boardId")
     @Expose
-    private Long boardId;
+    private String boardId;
     @SerializedName("category")
     @Expose
-    private Long category;
+    private String category;
     @SerializedName("completion")
     @Expose
     private String completion;
@@ -26,58 +24,50 @@ public class BoardListInfos {
     private String content;
     @SerializedName("likeNumber")
     @Expose
-    private Long likeNumber;
+    private String likeNumber;
     @SerializedName("maxBettingPrice")
     @Expose
-    private Long maxBettingPrice;
+    private String maxBettingPrice;
     @SerializedName("s3imageURL")
     @Expose
     private String s3imageURL;
     @SerializedName("startPrice")
     @Expose
-    private Long startPrice;
+    private String startPrice;
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("uploadDate")
-    @Expose
-    private String uploadDate;
     @SerializedName("writerId")
     @Expose
     private String writerId;
     @SerializedName("writerNickName")
     @Expose
     private String writerNickName;
-
-    @SerializedName("writerJwt")
+    @SerializedName("jwt")
     @Expose
-    private Long writerJwt;
+    private String jwt;
     @SerializedName("currentUserLikeThisBoard")
     @Expose
     private Boolean currentUserLikeThisBoard;
+    private List<BettingInfos> bettingInfos = null;
 
-    public Boolean getCurrentUserLikeThisBoard() {
-        return currentUserLikeThisBoard;
-    }
 
-    public void setCurrentUserLikeThisBoard(Boolean currentUserLikeThisBoard) {
-        this.currentUserLikeThisBoard = currentUserLikeThisBoard;
-    }
-
-    public Long getWriterJwt() {
-        return writerJwt;
-    }
-
-    public void setWriterJwt(Long writerJwt) {
-        this.writerJwt = writerJwt;
-    }
-
-    public String getAuctionDeadline() {
-        return auctionDeadline;
-    }
-
-    public void setAuctionDeadline(String auctionDeadline) {
+    public ViewPostListItem(String auctionDeadline, String boardId, String category, String completion, String content, String likeNumber, String maxBettingPrice, String s3imageURL, String startPrice, String title, String writerId, String writerNickName, String jwt, Boolean currentUserLikeThisBoard, List<BettingInfos> bettingInfos) {
         this.auctionDeadline = auctionDeadline;
+        this.boardId = boardId;
+        this.category = category;
+        this.completion = completion;
+        this.content = content;
+        this.likeNumber = likeNumber;
+        this.maxBettingPrice = maxBettingPrice;
+        this.s3imageURL = s3imageURL;
+        this.startPrice = startPrice;
+        this.title = title;
+        this.writerId = writerId;
+        this.writerNickName = writerNickName;
+        this.jwt = jwt;
+        this.currentUserLikeThisBoard = currentUserLikeThisBoard;
+        this.bettingInfos = bettingInfos;
     }
 
     public List<BettingInfos> getBettingInfos() {
@@ -88,19 +78,44 @@ public class BoardListInfos {
         this.bettingInfos = bettingInfos;
     }
 
-    public Long getBoardId() {
+    public Boolean getCurrentUserLikeThisBoard() {
+        return currentUserLikeThisBoard;
+    }
+
+    public void setCurrentUserLikeThisBoard(Boolean currentUserLikeThisBoard) {
+        this.currentUserLikeThisBoard = currentUserLikeThisBoard;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
+    }
+
+    public String getAuctionDeadline() {
+        return auctionDeadline;
+    }
+
+    public void setAuctionDeadline(String auctionDeadline) {
+        this.auctionDeadline = auctionDeadline;
+    }
+
+
+    public String getBoardId() {
         return boardId;
     }
 
-    public void setBoardId(Long boardId) {
+    public void setBoardId(String boardId) {
         this.boardId = boardId;
     }
 
-    public Long getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Long category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -120,19 +135,19 @@ public class BoardListInfos {
         this.content = content;
     }
 
-    public Long getLikeNumber() {
+    public String getLikeNumber() {
         return likeNumber;
     }
 
-    public void setLikeNumber(Long likeNumber) {
+    public void setLikeNumber(String likeNumber) {
         this.likeNumber = likeNumber;
     }
 
-    public Long getMaxBettingPrice() {
+    public String getMaxBettingPrice() {
         return maxBettingPrice;
     }
 
-    public void setMaxBettingPrice(Long maxBettingPrice) {
+    public void setMaxBettingPrice(String maxBettingPrice) {
         this.maxBettingPrice = maxBettingPrice;
     }
 
@@ -144,11 +159,11 @@ public class BoardListInfos {
         this.s3imageURL = s3imageURL;
     }
 
-    public Long getStartPrice() {
+    public String getStartPrice() {
         return startPrice;
     }
 
-    public void setStartPrice(Long startPrice) {
+    public void setStartPrice(String startPrice) {
         this.startPrice = startPrice;
     }
 
@@ -160,13 +175,6 @@ public class BoardListInfos {
         this.title = title;
     }
 
-    public String getUploadDate() {
-        return uploadDate;
-    }
-
-    public void setUploadDate(String uploadDate) {
-        this.uploadDate = uploadDate;
-    }
 
     public String getWriterId() {
         return writerId;

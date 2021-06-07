@@ -7,9 +7,6 @@ public class UpdateMyBoardBody {
     @SerializedName("boardId")
     @Expose
     private Long boardId;
-    @SerializedName("completion")
-    @Expose
-    private String completion;
     @SerializedName("content")
     @Expose
     private String content;
@@ -17,9 +14,8 @@ public class UpdateMyBoardBody {
     @Expose
     private Long jwt;
 
-    public UpdateMyBoardBody(Long boardId, String completion, String content, Long jwt) {
+    public UpdateMyBoardBody(Long boardId, String content, Long jwt) {
         this.boardId = boardId;
-        this.completion = completion;
         this.content = content;
         this.jwt = jwt;
     }
@@ -30,14 +26,6 @@ public class UpdateMyBoardBody {
 
     public void setBoardId(Long boardId) {
         this.boardId = boardId;
-    }
-
-    public String getCompletion() {
-        return completion;
-    }
-
-    public void setCompletion(String completion) {
-        this.completion = completion;
     }
 
     public String getContent() {

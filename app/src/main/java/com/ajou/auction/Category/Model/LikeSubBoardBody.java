@@ -4,17 +4,17 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class LikeSubBoardBody {
-    @SerializedName("boardId")
-    @Expose
-    private Long boardId;
     @SerializedName("jwt")
     @Expose
     private Long jwt;
+    @SerializedName("boardId")
+    @Expose
+    private Long boardId;
 
-    public LikeSubBoardBody(Long boardId, Long jwt) {
+    public LikeSubBoardBody(Long jwt,Long boardId) {
+        this.jwt = jwt;
         this.boardId = boardId;
 
-        this.jwt = jwt;
     }
 
     public Long getBoardId() {

@@ -1,9 +1,9 @@
-package com.ajou.auction.Category.Model;
+package com.ajou.auction.Main;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class LikeAddBoardBody {
+public class CancelBettingBody {
     @SerializedName("boardId")
     @Expose
     private Long boardId;
@@ -11,7 +11,7 @@ public class LikeAddBoardBody {
     @Expose
     private Long jwt;
 
-    public LikeAddBoardBody(Long boardId, Long jwt) {
+    public CancelBettingBody(Long boardId, Long jwt) {
         this.boardId = boardId;
         this.jwt = jwt;
     }
@@ -22,14 +22,5 @@ public class LikeAddBoardBody {
 
     public void setBoardId(Long boardId) {
         this.boardId = boardId;
-    }
-
-
-    public Long getJwt() {
-        return jwt;
-    }
-
-    public void setJwt(Long jwt) {
-        this.jwt = jwt;
     }
 }

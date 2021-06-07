@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class BoardListInfos {
+public class MyBettingBoardListInfos {
     @SerializedName("auctionDeadline")
     @Expose
     private String auctionDeadline;
@@ -48,29 +48,6 @@ public class BoardListInfos {
     @SerializedName("writerNickName")
     @Expose
     private String writerNickName;
-
-    @SerializedName("writerJwt")
-    @Expose
-    private Long writerJwt;
-    @SerializedName("currentUserLikeThisBoard")
-    @Expose
-    private Boolean currentUserLikeThisBoard;
-
-    public Boolean getCurrentUserLikeThisBoard() {
-        return currentUserLikeThisBoard;
-    }
-
-    public void setCurrentUserLikeThisBoard(Boolean currentUserLikeThisBoard) {
-        this.currentUserLikeThisBoard = currentUserLikeThisBoard;
-    }
-
-    public Long getWriterJwt() {
-        return writerJwt;
-    }
-
-    public void setWriterJwt(Long writerJwt) {
-        this.writerJwt = writerJwt;
-    }
 
     public String getAuctionDeadline() {
         return auctionDeadline;

@@ -25,6 +25,8 @@ public class ApplicationClass extends Application {
     // SharedPreferences 키 값
     public static String TAG = "TEMPLATE_APP";
 
+    public boolean likeStatus = false;
+
 
     public static final Long X_ACCESS_TOKEN = null;
 

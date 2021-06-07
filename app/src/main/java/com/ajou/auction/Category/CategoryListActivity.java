@@ -5,8 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,12 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ajou.auction.Category.Interface.GetAllBoardView;
+import com.ajou.auction.Category.Model.BettingInfos;
 import com.ajou.auction.Category.Model.BoardListInfos;
 import com.ajou.auction.Category.Model.GetAllBoardResponse;
 import com.ajou.auction.Category.Service.GetAllBoardService;
 import com.ajou.auction.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.ajou.auction.ApplicationClass.jwt;
 import static com.ajou.auction.Profile.ViewProfileActivity.forName;
@@ -27,10 +31,28 @@ import static com.ajou.auction.Profile.ViewProfileActivity.forName;
 public class CategoryListActivity extends AppCompatActivity implements GetAllBoardView {
 
     private Long categoryId;
-    private ArrayList<RecyclerPostListItem> dataList = new ArrayList<>();
+    private ArrayList<ViewPostListItem> dataList = new ArrayList<>();
     private Button btn_close;
     private TextView tv_category_name;
     private String categoryName = "";
+    private String title = null;
+    private String maxPrice = null;
+    private String image = null;
+    private String deadline = null;
+    private String likecnt = null;
+    private String content = null;
+    private String bettedPrice = null;
+    private String nickName = null;
+    private String userId = null;
+    private String boardId =null;
+    private String category = null;
+    private String completion = null;
+    private String startPrice = null;
+    private String writerId = null;
+    private String writerNickName = null;
+    private String myjwt = null;
+    private Boolean currentUserLikeThisBoard = false;
+    private List<BettingInfos> totalbetter;
 
     CategoryAdapter categoryAdapter;
 
@@ -44,6 +66,7 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
             @Override
             public void onRefresh() {
                 Toast.makeText(CategoryListActivity.this, "새로고침", Toast.LENGTH_LONG).show();
+                categoryAdapter.clearData();
                 getRecyclerView();
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -91,44 +114,18 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
 
         tv_category_name = findViewById(R.id.category_tv_name);
         tv_category_name.setText(categoryName);
-
-        //getRecyclerView();
-
-
-//        for (int i = 0; i < 10; i++) {
-//            dataList.add(new CategoryListItem("", "제목입니당", "2021-06-11 23:59", "30000", "5"));
-//        }
-
-//        RecyclerView recyclerView = findViewById(R.id.category_list_recyclerview);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setHasFixedSize(true);
-//
-//        CategoryAdapter categoryAdapter = new CategoryAdapter(dataList);
-//        recyclerView.setAdapter(categoryAdapter);
-//        recyclerView.getAdapter().notifyDataSetChanged();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
         getRecyclerView();
     }
 
-//    private void addItem(String title,String maxBettingPrice,String s3imageURL,String auctionDeadline,String likeNumber){
-//        RecyclerPostListItem item = new RecyclerPostListItem();
-//
-//        item.setTitle(title);
-//        item.setMaxBettingPrice(maxBettingPrice);
-//        item.setS3imageURL(s3imageURL);
-//        item.setAuctionDeadline(auctionDeadline);
-//        item.setLikeNumber(likeNumber);
-//        Log.d("getboard","additem");
-//    }
-
     private void getRecyclerView(){
-        new GetAllBoardService(CategoryListActivity.this).getAllBoard(jwt);
-        ArrayList<RecyclerPostListItem> recyclerPostListItems = new ArrayList<RecyclerPostListItem>();
+        new GetAllBoardService(CategoryListActivity.this).getAllBoard(jwt);  //게시물가져오기 API호출
+        ArrayList<ViewPostListItem> recyclerPostListItems = new ArrayList<ViewPostListItem>();
 
         RecyclerView recyclerView = findViewById(R.id.category_list_recyclerview);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -136,35 +133,57 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
         recyclerView.setHasFixedSize(true);
 
         categoryAdapter = new CategoryAdapter(dataList);
+        categoryAdapter.clearData();
         recyclerView.setAdapter(categoryAdapter);
         recyclerView.getAdapter().notifyDataSetChanged();
+        categoryAdapter.setOnBoardClicklistener(new OnBoardItemClickListener() {
+            @Override
+            public void onBoardClick(CategoryAdapter.ViewHolder holder, View view, int position) {
+                ViewPostListItem item = categoryAdapter.getItem(position);
+                //ViewPost액티비티로 이동
+                send2ViewPost("CategoryActivity",item.getAuctionDeadline(),item.getBoardId(),item.getCategory(),item.getCompletion(),
+                        item.getContent(),item.getLikeNumber(),item.getMaxBettingPrice(),item.getS3imageURL(),item.getStartPrice(),item.getTitle(),item.getWriterId(),
+                        item.getWriterNickName(),item.getJwt(),item.getCurrentUserLikeThisBoard(),item.getBettingInfos().size());
+                //Log.d("viewpost", item.getBoardId());
+            }
+        });
     }
 
     @Override
     public void getAllBoardSuccess(GetAllBoardResponse response) {
 
+        BoardListInfos boardListInfoss = new BoardListInfos();
         ArrayList<BoardListInfos> boardListInfos = (ArrayList<BoardListInfos>)response.getBoardList();
+        ArrayList<BettingInfos> bettingInfos = (ArrayList<BettingInfos>)boardListInfoss.getBettingInfos();
         if(response != null){
-            String title = null;
-            String price = null;
-            String image = null;
-            String deadline = null;
-            String likecnt = null;
+//            for (BettingInfos bettingInfos1 : bettingInfos){
+//                Long betprice = bettingInfos1.getBettedPrice();
+//            }
 
             for (BoardListInfos boardListInfo : boardListInfos){
                 if(categoryId == boardListInfo.getCategory()){
                     title = boardListInfo.getTitle();
-                    price = boardListInfo.getMaxBettingPrice().toString();
+                    maxPrice = boardListInfo.getMaxBettingPrice().toString();
                     image = boardListInfo.getS3imageURL();
                     deadline = boardListInfo.getAuctionDeadline();
                     likecnt = boardListInfo.getLikeNumber().toString();
+                    content = boardListInfo.getContent();
+                    boardId = boardListInfo.getBoardId().toString();
+                    category = boardListInfo.getCategory().toString();
+                    completion = boardListInfo.getCompletion();
+                    startPrice = boardListInfo.getStartPrice().toString();
+                    writerId = boardListInfo.getWriterId();
+                    writerNickName = boardListInfo.getWriterNickName();
+                    myjwt = boardListInfo.getWriterJwt().toString();
+                    currentUserLikeThisBoard = boardListInfo.getCurrentUserLikeThisBoard();
+                    totalbetter = boardListInfo.getBettingInfos();
 
                     //addItem(boardListInfo.getTitle(),boardListInfo.getMaxBettingPrice(),boardListInfo.getS3imageURL(),boardListInfo.getAuctionDeadline(),boardListInfo.getLikeNumber());
-                    dataList.add(new RecyclerPostListItem(
-                        title,price,image,deadline,likecnt
+                    dataList.add(new ViewPostListItem(
+                        deadline,boardId,category,completion,content,likecnt,maxPrice,image,startPrice,title,writerId,writerNickName,myjwt,currentUserLikeThisBoard,totalbetter
                     ));
                     Log.d("getboard",title);
-                    Log.d("getboard",price);
+                    Log.d("getboard",maxPrice);
                     Log.d("getboard",image);
                     Log.d("getboard",deadline);
                     Log.d("getboard",likecnt);
@@ -180,5 +199,27 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
     @Override
     public void getAllBoardFailure() {
 
+    }
+                                                 // List<BettingInfos> bettingInfos
+    private void send2ViewPost(String from,String auctionDeadline, String boardID, String category, String completion, String content, String likeNumber, String maxBettingPrice, String s3URL, String startPrice, String title, String writerId, String writerNickName, String myjwt, Boolean currentUserLikeThisBoard, int totalbetter){
+        Intent intent = new Intent(CategoryListActivity.this, ViewPostActivity.class);
+        intent.putExtra("from",from);
+        intent.putExtra("auctionDeadline", auctionDeadline);
+        intent.putExtra("boardID", boardID);
+        intent.putExtra("category", category);
+        intent.putExtra("completion", completion);
+        intent.putExtra("content", content);
+        intent.putExtra("likeNumber", likeNumber);
+        intent.putExtra("maxBettingPrice", maxBettingPrice);
+        intent.putExtra("s3URL", s3URL);
+        intent.putExtra("startPrice", startPrice);
+        intent.putExtra("title", title);
+        intent.putExtra("writerId", writerId);
+        intent.putExtra("writerNickName", writerNickName);
+        intent.putExtra("myjwt",myjwt);
+        intent.putExtra("currentUserLikeThisBoard", currentUserLikeThisBoard);
+        intent.putExtra("totalbetter", totalbetter);
+        startActivity(intent);
+        //finish();
     }
 }

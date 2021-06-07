@@ -25,7 +25,6 @@ public class SignUpService {
             @Override
             public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
                 SignUpResponse signUpResponse = response.body();
-
                 if(signUpResponse != null){
                     if(response.isSuccessful()){
                         mSignUpActivityView.validateSuccess();

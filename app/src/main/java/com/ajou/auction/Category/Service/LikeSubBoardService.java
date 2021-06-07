@@ -23,12 +23,13 @@ public class LikeSubBoardService {
         mLikeBoardView = likeSubBoardView;
     }
 
-    public void likeSubBoard(Long boardId,Long jwt){
+    public void likeSubBoard(Long jwt,Long boardId){
         final LikeSubBoardRetrofitInterface likeSubBoardRetrofitInterface = ApplicationClass.getRetrofit2().create(LikeSubBoardRetrofitInterface.class);
-        likeSubBoardRetrofitInterface.likeSubBoard(new LikeSubBoardBody(boardId, jwt)).enqueue(new Callback<LikeSubBoardResponse>() {
+        likeSubBoardRetrofitInterface.likeSubBoard(jwt,boardId).enqueue(new Callback<LikeSubBoardResponse>() {
             @Override
             public void onResponse(Call<LikeSubBoardResponse> call, Response<LikeSubBoardResponse> response) {
-                mLikeBoardView.likeSubBoardSuccess();
+                LikeSubBoardResponse likeSubBoardResponse = response.body();
+                mLikeBoardView.likeSubBoardSuccess(likeSubBoardResponse);
                 Log.d("likeSub", "success");
             }
 
