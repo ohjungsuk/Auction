@@ -3,6 +3,7 @@ package com.ajou.auction.Profile.Services;
 import com.ajou.auction.Profile.Interfaces.HeartActivityView;
 import com.ajou.auction.Profile.Interfaces.HeartRetrofitInterface;
 import com.ajou.auction.Profile.Interfaces.ProfileViewRetrofitInterface;
+import com.ajou.auction.Profile.Models.HeartCancelResponse;
 import com.ajou.auction.Profile.Models.HeartResponse;
 import com.ajou.auction.Profile.Models.ProfileViewResponse;
 
@@ -40,6 +41,30 @@ public class HeartService {
             @Override
             public void onFailure(Call<HeartResponse> call, Throwable t) {
                 mHeartActivityView.sendHeartFailure(null);
+            }
+        });
+    }
+
+    public void unsendingHeart(final Long jwt2, final String targetUserId2) {
+        final HeartRetrofitInterface heartRetrofitInterface2 = getRetrofit2().create(HeartRetrofitInterface.class);
+        heartRetrofitInterface2.unsendingHeart(jwt2, targetUserId2).enqueue(new Callback<HeartCancelResponse>() {
+            // 비동기 호출
+            @Override
+            public void onResponse(Call<HeartCancelResponse> call, Response<HeartCancelResponse> response) {
+                final HeartCancelResponse heartCancelResponse = response.body();
+                if (heartCancelResponse.getSuccess()) {
+                    mHeartActivityView.unsendHeartSuccess("성공이에욤");
+                    System.out.println("success");
+                } else {
+                    System.out.println("What? " + heartCancelResponse.getSuccess());
+                    mHeartActivityView.unsendHeartFailure("실패");
+                    System.out.println("faillll");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<HeartCancelResponse> call, Throwable t) {
+                mHeartActivityView.unsendHeartFailure(null);
             }
         });
     }

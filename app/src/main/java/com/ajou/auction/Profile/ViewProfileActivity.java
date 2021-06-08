@@ -77,6 +77,7 @@ public class ViewProfileActivity extends AppCompatActivity implements HeartActiv
         btn_unfollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tryUnsendHeart(jwt, userRealId);
             }
         });
 
@@ -106,7 +107,13 @@ public class ViewProfileActivity extends AppCompatActivity implements HeartActiv
     private void trySendHeart(Long jwt, String targetUserId) {
         final HeartService heartService = new HeartService(this);
         heartService.sendingHeart(jwt, targetUserId);
-        System.out.println("try Add Reply");
+        System.out.println("try Send Heart");
+    }
+
+    private void tryUnsendHeart(Long jwt, String targetUserId) {
+        final HeartService heartService = new HeartService(this);
+        heartService.unsendingHeart(jwt, targetUserId);
+        System.out.println("try Unsend Heart");
     }
 
     @Override
@@ -117,5 +124,15 @@ public class ViewProfileActivity extends AppCompatActivity implements HeartActiv
     @Override
     public void sendHeartFailure(String message) {
         System.out.println("sending Heart Failure");
+    }
+
+    @Override
+    public void unsendHeartSuccess(String text) {
+        System.out.println("unsending Heart Success");
+    }
+
+    @Override
+    public void unsendHeartFailure(String message) {
+        System.out.println("unsending Heart Failure");
     }
 }
