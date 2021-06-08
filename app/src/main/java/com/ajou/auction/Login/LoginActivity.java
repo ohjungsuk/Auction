@@ -1,5 +1,6 @@
 package com.ajou.auction.Login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,6 +35,15 @@ public class LoginActivity extends AppCompatActivity implements LogInActivityVie
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                // 유저 ID 저장
+                SharedPreferences sharedPreferences = getSharedPreferences("ID", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                String id = et_login_id.getText().toString();
+                editor.putString("user_id", id);
+                editor.apply();
+
+
                 if(et_login_id.getText().toString()!=null && et_login_password.getText().toString()!=null){
                     new LogInService(LoginActivity.this).postLogIn(
                             et_login_id.getText().toString(),

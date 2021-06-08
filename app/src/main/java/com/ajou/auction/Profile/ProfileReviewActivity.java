@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.ajou.auction.Profile.Interfaces.ProfileViewActivityView;
+import com.ajou.auction.Profile.Models.FollowerInfoList;
 import com.ajou.auction.Profile.Models.ProfileViewResponse;
 import com.ajou.auction.Profile.Models.ReplyList;
 import com.ajou.auction.Profile.Services.ProfileAddReplyService;
@@ -26,7 +27,7 @@ import static com.ajou.auction.ApplicationClass.jwt;
 
 public class ProfileReviewActivity extends AppCompatActivity implements ProfileViewActivityView {
 
-    private ArrayList<ProfileReviewItem> dataList = new ArrayList<>();
+//    private ArrayList<ProfileReviewItem> dataList = new ArrayList<>();
     private ArrayList<ReplyList> replyList = new ArrayList<>();
     private Button btn_write, btn_close;
     private ProfileReviewAdapter profileReviewAdapter;
@@ -91,5 +92,15 @@ public class ProfileReviewActivity extends AppCompatActivity implements ProfileV
     @Override
     public void viewProfileFailure(String message) {
         System.out.println("view Profile Review Failure");
+    }
+
+    @Override
+    public void viewFollowerSuccess(ArrayList<FollowerInfoList> followerList) {
+
+    }
+
+    @Override
+    public void viewFollowerFailure(String message) {
+
     }
 }

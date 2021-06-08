@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ajou.auction.Profile.Models.FollowerInfoList;
 import com.ajou.auction.R;
 import com.bumptech.glide.Glide;
 
@@ -17,10 +18,10 @@ import java.util.ArrayList;
 
 public class FollowerAdapter extends RecyclerView.Adapter<FollowerAdapter.ViewHolder> {
 
-    private final ArrayList<FollowerItem> mDataList;
+    private final ArrayList<FollowerInfoList> mDataList;
     private Context mContext;
 
-    public FollowerAdapter(ArrayList<FollowerItem> mDataList) {
+    public FollowerAdapter(ArrayList<FollowerInfoList> mDataList) {
         this.mDataList = mDataList;
     }
 
@@ -34,10 +35,10 @@ public class FollowerAdapter extends RecyclerView.Adapter<FollowerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        FollowerItem item = mDataList.get(position);
+        FollowerInfoList item = mDataList.get(position);
 
 //        Glide.with(mContext).load(item.getImg()).into(holder.img);
-        holder.tv_id.setText(item.getId());
+        holder.tv_id.setText(item.getFollowerUserId());
     }
 
     @Override
