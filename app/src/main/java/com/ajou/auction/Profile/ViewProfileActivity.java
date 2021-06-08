@@ -30,7 +30,7 @@ public class ViewProfileActivity extends AppCompatActivity implements HeartActiv
 
         SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         userId = sharedPreferences.getString("userId", "");
-        System.out.println("User 닉네임 확인 " + userId);
+        System.out.println("현재 프로필을 보려고 하는 User 닉네임 " + userId);
 
         sharedPreferences = getSharedPreferences("UserId", Context.MODE_PRIVATE);
         String userRealId = sharedPreferences.getString("userRealId", "");

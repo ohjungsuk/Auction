@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements LogInActivityVie
                 editor.putString("user_id", id);
                 editor.apply();
 
+                System.out.println("현재 로그인한 유저의 아이디 " + id);
 
                 if(et_login_id.getText().toString()!=null && et_login_password.getText().toString()!=null){
                     new LogInService(LoginActivity.this).postLogIn(

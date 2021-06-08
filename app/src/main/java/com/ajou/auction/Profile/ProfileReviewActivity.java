@@ -60,7 +60,7 @@ public class ProfileReviewActivity extends AppCompatActivity implements ProfileV
 
         SharedPreferences sharedPreferences = getSharedPreferences("UserId", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("userRealId", "");
-        System.out.println("User Id 확인 (write review) " + userId);
+        System.out.println("User " + userId + "의 리뷰보기");
         tryViewReview(userId);
 
 

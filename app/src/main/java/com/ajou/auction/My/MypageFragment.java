@@ -1,7 +1,9 @@
 package com.ajou.auction.My;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -64,6 +66,23 @@ public class MypageFragment extends Fragment implements SignOutActivityView {
         btn_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // 유저 ID 저장
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("ID", Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("user_id", "");
+                System.out.println("로그인한 유저의 Id 확인 " + userId);
+
+                sharedPreferences = getContext().getSharedPreferences("UserId", Context.MODE_PRIVATE);
+
+                /*
+                sharedPreferences = getSharedPreferences("UserId", Context.MODE_PRIVATE);
+        String userRealId = sharedPreferences.getString("userRealId", "");
+                 */
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("userRealId", userId);
+                editor.apply();
+                System.out.println("로그인한 User Id 재확인 " + userId);
+
+
                 Intent intent = new Intent(getActivity(), ProfileReviewActivity.class);
                 startActivity(intent);
             }
