@@ -6,6 +6,9 @@ import com.ajou.auction.Profile.Models.ReplyList;
 import java.util.ArrayList;
 
 public interface ProfileViewActivityView {
+    // 거래후기 댓글 관련
     void viewProfileSuccess(ArrayList<ReplyList> dataList);
     void viewProfileFailure(String message);
+
+
 }

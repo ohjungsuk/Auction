@@ -11,10 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ajou.auction.Category.CategoryListActivity;
-import com.ajou.auction.Profile.ProfileReviewActivity;
+import com.ajou.auction.Profile.Interfaces.HeartActivityView;
+import com.ajou.auction.Profile.Services.HeartService;
 import com.ajou.auction.R;
+import static com.ajou.auction.ApplicationClass.jwt;
 
-public class ViewProfileActivity extends AppCompatActivity {
+public class ViewProfileActivity extends AppCompatActivity implements HeartActivityView {
 
     private String userId;
     private TextView tv_id, tv_jjim, tv_selling, tv_review;
@@ -29,6 +31,11 @@ public class ViewProfileActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         userId = sharedPreferences.getString("userId", "");
         System.out.println("User 닉네임 확인 " + userId);
+
+        sharedPreferences = getSharedPreferences("UserId", Context.MODE_PRIVATE);
+        String userRealId = sharedPreferences.getString("userRealId", "");
+        System.out.println("User Real Id 확인 " + userRealId);
+        System.out.println("content (jwt) " + jwt);
 
         tv_id = findViewById(R.id.view_profile_tv_id);
         tv_id.setText(userId);
@@ -62,7 +69,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         btn_follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                trySendHeart(jwt, userRealId);
             }
         });
 
@@ -70,7 +77,6 @@ public class ViewProfileActivity extends AppCompatActivity {
         btn_unfollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
 
@@ -95,5 +101,21 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(), CategoryListActivity.class);
         startActivity(intent);
+    }
+
+    private void trySendHeart(Long jwt, String targetUserId) {
+        final HeartService heartService = new HeartService(this);
+        heartService.sendingHeart(jwt, targetUserId);
+        System.out.println("try Add Reply");
+    }
+
+    @Override
+    public void sendHeartSuccess(String text) {
+        System.out.println("sending Heart Success");
+    }
+
+    @Override
+    public void sendHeartFailure(String message) {
+        System.out.println("sending Heart Failure");
     }
 }
