@@ -1,9 +1,5 @@
 package com.ajou.auction.Profile.Services;
 
-import com.ajou.auction.Post.Interface.PostModifyActivityView;
-import com.ajou.auction.Post.Interface.PostModifyRetrofitInterface;
-import com.ajou.auction.Post.Model.PostModifyBody;
-import com.ajou.auction.Post.Model.PostModifyResponse;
 import com.ajou.auction.Profile.Interfaces.ProfileAddReplyActivityView;
 import com.ajou.auction.Profile.Interfaces.ProfileAddReplyRetrofitInterface;
 import com.ajou.auction.Profile.Models.ProfileAddReplyBody;
@@ -38,19 +34,6 @@ public class ProfileAddReplyService {
                     mProfileAddReplyActivityView.addReplyFailure("실패");
                     System.out.println("faillll");
                 }
-//                if (postModifyResponse == null) {
-//                    mPostModifyActivityView.postModifyFailure(null);
-//                    System.out.println("post 1");
-//                    return;
-//                }
-//                else if (postModifyResponse.getBoardID() > 0) {
-//                    System.out.println("post 2");
-//                    mPostModifyActivityView.postModifySuccess(postModifyResponse.getBoardID().toString());
-//                }
-//                else {
-//                    System.out.println("post 3 " + postModifyResponse.getBoardID());
-//                    mPostModifyActivityView.postModifyFailure(postModifyResponse.getBoardID().toString());
-//                }
             }
 
             @Override

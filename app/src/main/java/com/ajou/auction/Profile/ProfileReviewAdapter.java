@@ -4,25 +4,25 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ajou.auction.Profile.Models.ReplyList;
 import com.ajou.auction.R;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 public class ProfileReviewAdapter extends RecyclerView.Adapter<ProfileReviewAdapter.ViewHolder> {
 
-    private final ArrayList<ProfileReviewItem> mDataList;
+    private final ArrayList<ReplyList> mDataList;
     private Context mContext;
 
-    public ProfileReviewAdapter(ArrayList<ProfileReviewItem> mDataList) {
+    public ProfileReviewAdapter(ArrayList<ReplyList> mDataList) {
         this.mDataList = mDataList;
     }
+
 
     @NonNull
     @Override
@@ -34,11 +34,11 @@ public class ProfileReviewAdapter extends RecyclerView.Adapter<ProfileReviewAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ProfileReviewItem item = mDataList.get(position);
+        ReplyList item = mDataList.get(position);
 
         //Glide.with(mContext).load(item.getImg()).into(holder.img);
-        holder.tv_id.setText(item.getId());
-        holder.tv_review.setText(item.getReview());
+        holder.tv_id.setText(item.getWriterNickName());
+        holder.tv_review.setText(item.getContent());
     }
 
     @Override

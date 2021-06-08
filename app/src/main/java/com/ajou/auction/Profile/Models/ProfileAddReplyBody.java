@@ -3,9 +3,6 @@ package com.ajou.auction.Profile.Models;
 import com.google.gson.annotations.SerializedName;
 
 public class ProfileAddReplyBody {
-    /*
-    \
-     */
     @SerializedName("content")
     private String content;
 

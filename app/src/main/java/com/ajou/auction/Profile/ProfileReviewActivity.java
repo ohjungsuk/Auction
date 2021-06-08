@@ -4,20 +4,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.ajou.auction.Profile.Interfaces.ProfileViewActivityView;
+import com.ajou.auction.Profile.Models.ProfileViewResponse;
+import com.ajou.auction.Profile.Models.ReplyList;
+import com.ajou.auction.Profile.Services.ProfileAddReplyService;
+import com.ajou.auction.Profile.Services.ProfileViewService;
 import com.ajou.auction.R;
 
 import java.util.ArrayList;
 
-public class ProfileReviewActivity extends AppCompatActivity {
+import static com.ajou.auction.ApplicationClass.jwt;
+
+public class ProfileReviewActivity extends AppCompatActivity implements ProfileViewActivityView {
 
     private ArrayList<ProfileReviewItem> dataList = new ArrayList<>();
+    private ArrayList<ReplyList> replyList = new ArrayList<>();
     private Button btn_write, btn_close;
+    private ProfileReviewAdapter profileReviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +53,14 @@ public class ProfileReviewActivity extends AppCompatActivity {
             }
         });
 
-        for (int i = 0; i < 10; i++) {
-            dataList.add(new ProfileReviewItem("", "뀨", "너무 좋았어염"));
-        }
+//        for (int i = 0; i < 10; i++) {
+//            dataList.add(new ProfileReviewItem("", "뀨", "너무 좋았어염"));
+//        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("UserId", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("userRealId", "");
+        System.out.println("User Id 확인 (write review) " + userId);
+        tryViewReview(userId);
 
 
         RecyclerView recyclerView = findViewById(R.id.profile_review_recyclerview);
@@ -51,8 +68,28 @@ public class ProfileReviewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        ProfileReviewAdapter profileReviewAdapter = new ProfileReviewAdapter(dataList);
+        profileReviewAdapter = new ProfileReviewAdapter(replyList);
         recyclerView.setAdapter(profileReviewAdapter);
         recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    private void tryViewReview(String userId) {
+        final ProfileViewService profileViewService = new ProfileViewService(this);
+        profileViewService.viewProfile(userId);
+        System.out.println("try View review");
+    }
+
+
+    @Override
+    public void viewProfileSuccess(ArrayList<ReplyList> dataList) {
+        replyList.addAll(dataList);
+
+        profileReviewAdapter.notifyDataSetChanged();
+        System.out.println("view Profile Review success");
+    }
+
+    @Override
+    public void viewProfileFailure(String message) {
+        System.out.println("view Profile Review Failure");
     }
 }
