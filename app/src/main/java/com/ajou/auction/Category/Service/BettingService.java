@@ -1,11 +1,13 @@
 package com.ajou.auction.Category.Service;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ajou.auction.ApplicationClass;
 import com.ajou.auction.Category.Interface.BettingActivityView;
 import com.ajou.auction.Category.Interface.BettingRetrofitInterface;
 import com.ajou.auction.Category.Model.BettingBody;
+import com.ajou.auction.Category.ParticipateActivity;
 import com.ajou.auction.Login.Interfaces.SignUpActivityView;
 import com.ajou.auction.Login.Interfaces.SignUpRetrofitInterface;
 import com.ajou.auction.Login.Models.SignUpBody;
@@ -29,11 +31,13 @@ public class BettingService {
         bettingRetrofitInterface.betting(new BettingBody(bettingPrice,boardId,jwt)).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                mBettingActivityView.bettingSuccess();
                 Log.d("betting", "success");
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                mBettingActivityView.bettingFailure();
                 Log.d("betting", "fail");
             }
         });

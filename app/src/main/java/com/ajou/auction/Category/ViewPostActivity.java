@@ -213,8 +213,8 @@ public class ViewPostActivity extends AppCompatActivity implements DeleteMyBoard
             @Override
             public void onClick(View view) {
                 //내가 배팅한거 취소 API
-//                new CancelBettingService(ViewPostActivity.this).cancelbetting(jwt,Long.valueOf(boardId));
-//                finish();
+                new CancelBettingService(ViewPostActivity.this).cancelbetting(jwt,Long.valueOf(boardId));
+                finish();
             }
         });
 
@@ -351,12 +351,12 @@ public class ViewPostActivity extends AppCompatActivity implements DeleteMyBoard
 
     @Override
     public void cancelBettingSuccess() {
-        Toast.makeText(ViewPostActivity.this, "배팅 취소 성공", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ViewPostActivity.this, "배팅 취소 성공", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void cancelBettingFailure() {
-        Toast.makeText(ViewPostActivity.this, "배팅 취소 실패", Toast.LENGTH_SHORT).show();
+        Toast.makeText(ViewPostActivity.this, "배팅 취소 실패", Toast.LENGTH_LONG).show();
 
     }
 }

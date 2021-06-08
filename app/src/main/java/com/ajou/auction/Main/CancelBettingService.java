@@ -18,16 +18,18 @@ public class CancelBettingService {
         mCancelBettingView = cancelBettingView;
     }
 
-    public void cancelbetting(Long boardId, Long jwt){
+    public void cancelbetting(Long jwt,Long boardId){
         final CancelBettingRetrofitInterface cancelBettingRetrofitInterface = ApplicationClass.getRetrofit2().create(CancelBettingRetrofitInterface.class);
-        cancelBettingRetrofitInterface.cancelbetting(new CancelBettingBody(boardId,jwt)).enqueue(new Callback<Void>() {
+        cancelBettingRetrofitInterface.cancelbetting(jwt,boardId).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                mCancelBettingView.cancelBettingSuccess();
                 Log.d("cancelbetting", "success");
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
+                mCancelBettingView.cancelBettingFailure();
                 Log.d("cancelbetting", "fail");
             }
         });
