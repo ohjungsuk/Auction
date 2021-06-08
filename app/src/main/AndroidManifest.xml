@@ -15,10 +15,13 @@
         android:theme="@style/Theme.Auction"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Profile.ViewProductActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Design.NoActionBar"/>
+        <activity
             android:name=".Category.UpdateMyBoardActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Design.NoActionBar" >
-        </activity>
+            android:theme="@style/Theme.Design.NoActionBar"></activity>
         <activity
             android:name=".Profile.FollowerActivity"
             android:screenOrientation="portrait"

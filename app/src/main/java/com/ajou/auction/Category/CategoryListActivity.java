@@ -21,6 +21,12 @@ import com.ajou.auction.Category.Model.BettingInfos;
 import com.ajou.auction.Category.Model.BoardListInfos;
 import com.ajou.auction.Category.Model.GetAllBoardResponse;
 import com.ajou.auction.Category.Service.GetAllBoardService;
+import com.ajou.auction.Profile.FollowerAdapter;
+import com.ajou.auction.Profile.Interfaces.ProfileViewActivityView;
+import com.ajou.auction.Profile.Models.BoardInfo;
+import com.ajou.auction.Profile.Models.FollowerInfoList;
+import com.ajou.auction.Profile.Models.ReplyList;
+import com.ajou.auction.Profile.Services.ProfileViewService;
 import com.ajou.auction.R;
 
 import java.util.ArrayList;
@@ -29,7 +35,7 @@ import java.util.List;
 import static com.ajou.auction.ApplicationClass.jwt;
 import static com.ajou.auction.Profile.ViewProfileActivity.forName;
 
-public class CategoryListActivity extends AppCompatActivity implements GetAllBoardView {
+public class CategoryListActivity extends AppCompatActivity implements GetAllBoardView, ProfileViewActivityView {
 
     private Long categoryId;
     private ArrayList<ViewPostListItem> dataList = new ArrayList<>();
@@ -229,5 +235,33 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
         intent.putExtra("totalbetter", totalbetter);
         startActivity(intent);
         //finish();
+    }
+
+    @Override
+    public void viewProfileSuccess(ArrayList<ReplyList> dataList) {
+
+    }
+
+    @Override
+    public void viewProfileFailure(String message) {
+
+    }
+
+    @Override
+    public void viewFollowerSuccess(ArrayList<FollowerInfoList> followerList) {
+
+    }
+
+    @Override
+    public void viewFollowerFailure(String message) {
+
+    }
+
+    @Override
+    public void viewProductSuccess(ArrayList<BoardInfo> boardList) {
+    }
+
+    @Override
+    public void viewProductFailure(String message) {
     }
 }

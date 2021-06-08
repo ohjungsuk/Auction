@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.ajou.auction.Profile.Interfaces.ProfileViewActivityView;
+import com.ajou.auction.Profile.Models.BoardInfo;
 import com.ajou.auction.Profile.Models.FollowerInfoList;
 import com.ajou.auction.Profile.Models.ProfileViewResponse;
 import com.ajou.auction.Profile.Models.ReplyList;
@@ -43,6 +44,7 @@ public class ProfileReviewActivity extends AppCompatActivity implements ProfileV
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), WriteReviewActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -101,6 +103,16 @@ public class ProfileReviewActivity extends AppCompatActivity implements ProfileV
 
     @Override
     public void viewFollowerFailure(String message) {
+
+    }
+
+    @Override
+    public void viewProductSuccess(ArrayList<BoardInfo> boardList) {
+
+    }
+
+    @Override
+    public void viewProductFailure(String message) {
 
     }
 }

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.ajou.auction.Category.CategoryListActivity;
 import com.ajou.auction.Profile.Interfaces.HeartActivityView;
 import com.ajou.auction.Profile.Services.HeartService;
 import com.ajou.auction.R;
@@ -100,7 +99,7 @@ public class ViewProfileActivity extends AppCompatActivity implements HeartActiv
         editor.apply();
         forName = true;
 
-        Intent intent = new Intent(getApplicationContext(), CategoryListActivity.class);
+        Intent intent = new Intent(getApplicationContext(), ViewProductActivity.class);
         startActivity(intent);
     }
 

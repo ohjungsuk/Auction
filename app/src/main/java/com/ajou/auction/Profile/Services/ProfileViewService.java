@@ -66,4 +66,29 @@ public class ProfileViewService {
             }
         });
     }
+
+    // 판매 상품 관련
+    public void viewProduct(final String userId) {
+        final ProfileViewRetrofitInterface profileViewRetrofitInterface = getRetrofit2().create(ProfileViewRetrofitInterface.class);
+        profileViewRetrofitInterface.getUserProfile(userId).enqueue(new Callback<ProfileViewResponse>() {
+            // 비동기 호출
+            @Override
+            public void onResponse(Call<ProfileViewResponse> call, Response<ProfileViewResponse> response) {
+                final ProfileViewResponse profileViewResponse = response.body();
+                if (profileViewResponse.getBoardInfos() != null) {
+                    mProfileViewActivityView.viewProductSuccess(profileViewResponse.getBoardInfos());
+                    System.out.println("success");
+                } else {
+                    System.out.println("What? " + profileViewResponse.getBoardInfos());
+                    mProfileViewActivityView.viewProductFailure("실패");
+                    System.out.println("faillll");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileViewResponse> call, Throwable t) {
+                mProfileViewActivityView.viewProductFailure(null);
+            }
+        });
+    }
 }
