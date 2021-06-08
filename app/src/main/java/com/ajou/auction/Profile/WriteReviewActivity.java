@@ -3,19 +3,23 @@ package com.ajou.auction.Profile;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-import com.ajou.auction.Category.CategoryListActivity;
-import com.ajou.auction.Post.PostActivity;
+import com.ajou.auction.Profile.Interfaces.ProfileAddReplyActivityView;
+import com.ajou.auction.Profile.Services.ProfileAddReplyService;
 import com.ajou.auction.R;
+import static com.ajou.auction.ApplicationClass.jwt;
 
-public class WriteReviewActivity extends AppCompatActivity {
+public class WriteReviewActivity extends AppCompatActivity implements ProfileAddReplyActivityView {
 
     private ImageButton btn_close;
     private Button btn_complete;
@@ -54,11 +58,35 @@ public class WriteReviewActivity extends AppCompatActivity {
         btn_complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences sharedPreferences = getSharedPreferences("UserId", Context.MODE_PRIVATE);
+                String userId = sharedPreferences.getString("userRealId", "");
+                System.out.println("User Id 확인 (write review) " + userId);
+                System.out.println("content (write review) " + et_content.getText().toString());
+                System.out.println("content (jwt) " + jwt);
+                tryAddReply(et_content.getText().toString(), jwt, userId);
+
                 Intent intent = new Intent(getApplicationContext(), ProfileReviewActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
+    }
+
+    private void tryAddReply(String reply_content, Long reply_jwt, String targetUserId) {
+        final ProfileAddReplyService profileAddReplyService = new ProfileAddReplyService(this);
+        profileAddReplyService.postAddReply(reply_content, reply_jwt, targetUserId);
+        System.out.println("try Add Reply");
+    }
+
+    @Override
+    public void addReplySuccess(String text) {
+        Toast.makeText(this,"댓글 등록 성공",Toast.LENGTH_SHORT).show();
+        System.out.println("Add reply Success");
+    }
+
+    @Override
+    public void addReplyFailure(String message) {
+        System.out.println("Add reply Failure");
     }
 }

@@ -28,7 +28,7 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE);
         userId = sharedPreferences.getString("userId", "");
-        System.out.println("User Id 확인 " + userId);
+        System.out.println("User 닉네임 확인 " + userId);
 
         tv_id = findViewById(R.id.view_profile_tv_id);
         tv_id.setText(userId);

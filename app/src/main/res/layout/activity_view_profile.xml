@@ -115,7 +115,7 @@
                 <Button
                     android:layout_marginHorizontal="10dp"
                     android:id="@+id/view_profile_btn_follow"
-                    android:text="팔로우하기"
+                    android:text="하트 보내기"
                     android:textSize="14sp"
                     android:textColor="@color/white"
                     android:background="@drawable/button1"
@@ -126,7 +126,7 @@
                 <Button
                     android:layout_marginHorizontal="10dp"
                     android:id="@+id/view_profile_btn_unfollow"
-                    android:text="언팔로우하기"
+                    android:text="하트 취소하기"
                     android:textSize="14sp"
                     android:textColor="@color/white"
                     android:background="@drawable/button1"

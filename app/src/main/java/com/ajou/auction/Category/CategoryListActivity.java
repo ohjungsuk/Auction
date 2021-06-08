@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -145,6 +146,13 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
                         item.getContent(),item.getLikeNumber(),item.getMaxBettingPrice(),item.getS3imageURL(),item.getStartPrice(),item.getTitle(),item.getWriterId(),
                         item.getWriterNickName(),item.getJwt(),item.getCurrentUserLikeThisBoard(),item.getBettingInfos().size());
                 //Log.d("viewpost", item.getBoardId());
+
+                SharedPreferences sharedPreferences = getSharedPreferences("UserId", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                String userId = item.getWriterId(); // boardId 받아서 저장해줘야함
+                System.out.println("Real ID " + userId);
+                editor.putString("userRealId", userId);
+                editor.apply();
             }
         });
     }
