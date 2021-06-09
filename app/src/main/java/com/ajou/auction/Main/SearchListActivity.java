@@ -13,7 +13,7 @@ import com.ajou.auction.R;
 
 import java.util.ArrayList;
 
-import static com.ajou.auction.Main.MainFragment.keyWord;
+//import static com.ajou.auction.Main.MainFragment.keyWord;
 
 public class SearchListActivity extends AppCompatActivity {
 
@@ -35,9 +35,9 @@ public class SearchListActivity extends AppCompatActivity {
         });
 
         tv_search_keyword = findViewById(R.id.searchList_tv_name);
-        String input = "\"" + keyWord + "\" 에 대한 검색 결과";
-        tv_search_keyword.setText(input);
-        System.out.println("input " + input);
+        //String input = "\"" + keyWord + "\" 에 대한 검색 결과";
+        //tv_search_keyword.setText(input);
+        //System.out.println("input " + input);
 
         for (int i = 0; i < 10; i++) {
             dataList.add(new SearchListItem("", "제목입니당", "2021-06-11 23:59", "30000", "5"));

@@ -25,6 +25,8 @@ public class LoginActivity extends AppCompatActivity implements LogInActivityVie
 
     private Button btn_login, btn_signup;
     private EditText et_login_id, et_login_password;
+    private String myId;
+    private String myNickName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +104,12 @@ public class LoginActivity extends AppCompatActivity implements LogInActivityVie
                 jwt = response.getJwt();
                 System.out.println("JWT입니다." + jwt);
                 Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                myId = et_login_id.getText().toString();
                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                SharedPreferences sharedPreferences = getSharedPreferences("myId", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("myId", myId);
+                editor.apply();
                 Log.d("logintest2", String.valueOf(jwt));
                 startActivity(intent);
                 finish();

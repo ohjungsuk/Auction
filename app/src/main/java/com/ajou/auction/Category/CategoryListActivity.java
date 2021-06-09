@@ -65,6 +65,9 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
     private Boolean currentUserLikeThisBoard = false;
     private List<BettingInfos> totalbetter;
     private Intent intent;
+    private boolean isMyBoard = false;
+    private String keyword = null;
+    private Boolean search = false;
 
     CategoryAdapter categoryAdapter;
 
@@ -89,7 +92,14 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
         categoryId = sharedPreferences.getLong("categoryId", 0);
         System.out.println("Category Id 확인 " + categoryId);
 
-
+        Intent intent = getIntent();
+        if (intent.getStringExtra("from").equals("MF")){
+            isMyBoard = intent.getBooleanExtra("isMyBoard",false);
+        }else if (intent.getStringExtra("from").equals("CF")){
+            keyword = intent.getStringExtra("keyword");
+            search = true;
+            categoryId = 11L;
+        }
 
         btn_close = findViewById(R.id.category_btn_close);
         btn_close.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +133,11 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
             categoryName = "도서/티켓/음반";
         } else if (categoryId == 9) {
             categoryName = "기타/무료나눔";
+        } else if (categoryId == 10){
+            categoryName = "내가 쓴 게시물";
+            isMyBoard = true;
+        }else if (categoryId == 11){
+            categoryName = keyword + "를 포함한 검색결과";
         }
 
         tv_category_name = findViewById(R.id.category_tv_name);
@@ -177,7 +192,74 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
         ArrayList<BettingInfos> bettingInfos = (ArrayList<BettingInfos>)boardListInfoss.getBettingInfos();
         if(response != null){
             for (BoardListInfos boardListInfo : boardListInfos){
-                if(categoryId == boardListInfo.getCategory()){
+                if (!isMyBoard){ // 전체게시물 보기
+                    if (!search){
+                        if(categoryId == boardListInfo.getCategory()){
+                            if (boardListInfo.getCompletion().equals("N")){
+                                title = boardListInfo.getTitle();
+                                maxPrice = boardListInfo.getMaxBettingPrice().toString();
+                                image = boardListInfo.getS3imageURL();
+                                deadline = boardListInfo.getAuctionDeadline();
+                                likecnt = boardListInfo.getLikeNumber().toString();
+                                content = boardListInfo.getContent();
+                                boardId = boardListInfo.getBoardId().toString();
+                                category = boardListInfo.getCategory().toString();
+                                completion = boardListInfo.getCompletion();
+                                startPrice = boardListInfo.getStartPrice().toString();
+                                writerId = boardListInfo.getWriterId();
+                                writerNickName = boardListInfo.getWriterNickName();
+                                myjwt = boardListInfo.getWriterJwt().toString();
+                                currentUserLikeThisBoard = boardListInfo.getCurrentUserLikeThisBoard();
+                                totalbetter = boardListInfo.getBettingInfos();
+
+                                if (boardListInfo.getCompletion().equals("N")){
+                                    dataList.add(new ViewPostListItem(
+                                            deadline,boardId,category,completion,content,likecnt,maxPrice,image,startPrice,title,writerId,writerNickName,myjwt,currentUserLikeThisBoard,totalbetter
+                                    ));
+                                }else {
+                                    Log.d("mainfragment", "낙찰된 경매 삭제");
+                                    new DeleteMyBoardService(CategoryListActivity.this).deleteMyBoard(jwt,Long.valueOf(boardId));
+                                }
+
+                            }
+                        }
+                    }else if (search){
+                        if (boardListInfo.getCompletion().equals("N")){
+                            title = boardListInfo.getTitle();
+                            maxPrice = boardListInfo.getMaxBettingPrice().toString();
+                            image = boardListInfo.getS3imageURL();
+                            deadline = boardListInfo.getAuctionDeadline();
+                            likecnt = boardListInfo.getLikeNumber().toString();
+                            content = boardListInfo.getContent();
+                            boardId = boardListInfo.getBoardId().toString();
+                            category = boardListInfo.getCategory().toString();
+                            completion = boardListInfo.getCompletion();
+                            startPrice = boardListInfo.getStartPrice().toString();
+                            writerId = boardListInfo.getWriterId();
+                            writerNickName = boardListInfo.getWriterNickName();
+                            myjwt = boardListInfo.getWriterJwt().toString();
+                            currentUserLikeThisBoard = boardListInfo.getCurrentUserLikeThisBoard();
+                            totalbetter = boardListInfo.getBettingInfos();
+
+                            if (boardListInfo.getCompletion().equals("N")){
+                                if (title.contains(keyword)){
+                                    dataList.add(new ViewPostListItem(
+                                            deadline,boardId,category,completion,content,likecnt,maxPrice,image,startPrice,title,writerId,writerNickName,myjwt,currentUserLikeThisBoard,totalbetter
+                                    ));
+                                }
+//                                else {
+//                                    Toast.makeText(CategoryListActivity.this, "검색 결과가 없습니다.", Toast.LENGTH_LONG).show();
+//
+//                                }
+                            }else {
+                                Log.d("mainfragment", "낙찰된 경매 삭제");
+                                new DeleteMyBoardService(CategoryListActivity.this).deleteMyBoard(jwt,Long.valueOf(boardId));
+                            }
+
+                        }
+                    }
+
+                }else if (isMyBoard){
                     if (boardListInfo.getCompletion().equals("N")){
                         title = boardListInfo.getTitle();
                         maxPrice = boardListInfo.getMaxBettingPrice().toString();
@@ -196,9 +278,11 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
                         totalbetter = boardListInfo.getBettingInfos();
 
                         if (boardListInfo.getCompletion().equals("N")){
-                            dataList.add(new ViewPostListItem(
-                                    deadline,boardId,category,completion,content,likecnt,maxPrice,image,startPrice,title,writerId,writerNickName,myjwt,currentUserLikeThisBoard,totalbetter
-                            ));
+                            if (jwt == Long.parseLong(myjwt)){
+                                dataList.add(new ViewPostListItem(
+                                        deadline,boardId,category,completion,content,likecnt,maxPrice,image,startPrice,title,writerId,writerNickName,myjwt,currentUserLikeThisBoard,totalbetter
+                                ));
+                            }
                         }else {
                             Log.d("mainfragment", "낙찰된 경매 삭제");
                             new DeleteMyBoardService(CategoryListActivity.this).deleteMyBoard(jwt,Long.valueOf(boardId));
@@ -206,6 +290,7 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
 
                     }
                 }
+
             }
             //Log.d("getboard","good"+title);
         }else{

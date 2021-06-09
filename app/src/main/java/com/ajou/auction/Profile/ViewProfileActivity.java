@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ajou.auction.My.LikedListActivity;
 import com.ajou.auction.Profile.Interfaces.HeartActivityView;
 import com.ajou.auction.Profile.Services.HeartService;
 import com.ajou.auction.R;
@@ -39,19 +41,20 @@ public class ViewProfileActivity extends AppCompatActivity implements HeartActiv
         tv_id = findViewById(R.id.view_profile_tv_id);
         tv_id.setText(userId);
 
-        tv_jjim = findViewById(R.id.view_profile_tv_jjim);
-        tv_jjim.setOnClickListener(new View.OnClickListener() { // 찜한 게시글
-            @Override
-            public void onClick(View view) {
-
-                //getTitle("찜한 게시글");
-            }
-        });
+//        tv_jjim = findViewById(R.id.view_profile_tv_jjim);
+//        tv_jjim.setOnClickListener(new View.OnClickListener() { // 찜한 게시글
+//            @Override
+//            public void onClick(View view) {
+//
+//                //getTitle("찜한 게시글");
+//            }
+//        });
 
         tv_selling = findViewById(R.id.view_profile_tv_selling);
         tv_selling.setOnClickListener(new View.OnClickListener() { // 판매 상품
             @Override
             public void onClick(View view) {
+
                 getTitle("판매 상품");
             }
         });
@@ -118,16 +121,21 @@ public class ViewProfileActivity extends AppCompatActivity implements HeartActiv
 
     @Override
     public void sendHeartSuccess(String text) {
+        Toast.makeText(ViewProfileActivity.this, "상대방을 추천하였습니다!", Toast.LENGTH_LONG).show();
+
         System.out.println("sending Heart Success");
     }
 
     @Override
     public void sendHeartFailure(String message) {
+
         System.out.println("sending Heart Failure");
     }
 
     @Override
     public void unsendHeartSuccess(String text) {
+        Toast.makeText(ViewProfileActivity.this, "추천을 취소하였습니다.", Toast.LENGTH_LONG).show();
+
         System.out.println("unsending Heart Success");
     }
 

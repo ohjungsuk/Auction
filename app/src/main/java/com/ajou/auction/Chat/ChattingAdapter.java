@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ajou.auction.ApplicationClass;
 import com.ajou.auction.R;
 
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ public class ChattingAdapter extends RecyclerView.Adapter<ChattingAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 mContext = view.getContext();
-
                 Intent intent = new Intent(mContext, ChatActivity.class);
                 mContext.startActivity(intent);
             }

@@ -3,14 +3,22 @@ package com.ajou.auction.Profile;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.ajou.auction.Category.CategoryAdapter2;
+import com.ajou.auction.Category.CategoryListActivity;
+import com.ajou.auction.Category.Interface.DeleteMyBoardView;
+import com.ajou.auction.Category.Service.DeleteMyBoardService;
+import com.ajou.auction.My.LikedListActivity;
+import com.ajou.auction.My.ViewMyLikeListItem;
 import com.ajou.auction.Profile.Interfaces.ProfileViewActivityView;
 import com.ajou.auction.Profile.Models.BoardInfo;
 import com.ajou.auction.Profile.Models.FollowerInfoList;
@@ -21,7 +29,9 @@ import com.ajou.auction.R;
 
 import java.util.ArrayList;
 
-public class ViewProductActivity extends AppCompatActivity implements ProfileViewActivityView {
+import static com.ajou.auction.ApplicationClass.jwt;
+
+public class ViewProductActivity extends AppCompatActivity implements ProfileViewActivityView, DeleteMyBoardView {
 
     private ArrayList<BoardInfo> productList = new ArrayList<>();
     private CategoryAdapter2 categoryAdapter2;
@@ -32,6 +42,17 @@ public class ViewProductActivity extends AppCompatActivity implements ProfileVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_product);
 
+        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.view_list_swipelayout);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(ViewProductActivity.this, "새로고침", Toast.LENGTH_LONG).show();
+                categoryAdapter2.clearData();
+                getRecyclerView();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         btn_close = findViewById(R.id.view_product_btn_close);
         btn_close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +60,15 @@ public class ViewProductActivity extends AppCompatActivity implements ProfileVie
                 finish();
             }
         });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getRecyclerView();
+    }
+
+    private void getRecyclerView(){
 
         SharedPreferences sharedPreferences = getSharedPreferences("UserId", Context.MODE_PRIVATE);
         String userId = sharedPreferences.getString("userRealId", "");
@@ -51,6 +81,7 @@ public class ViewProductActivity extends AppCompatActivity implements ProfileVie
         recyclerView.setHasFixedSize(true);
 
         categoryAdapter2 = new CategoryAdapter2(productList);
+        categoryAdapter2.clearData();
         recyclerView.setAdapter(categoryAdapter2);
         recyclerView.getAdapter().notifyDataSetChanged();
     }
@@ -88,7 +119,16 @@ public class ViewProductActivity extends AppCompatActivity implements ProfileVie
 
     @Override
     public void viewProductSuccess2(ArrayList<BoardInfo> boardList) {
-        productList.addAll(boardList);
+        for (BoardInfo boardInfo: boardList){
+            String completion = boardInfo.getCompletion();
+            Long boardId = boardInfo.getBoardId();
+            if (completion.equals("N")){
+                productList.addAll(boardList);
+            }else {
+                Log.d("aaa", "낙찰된 경매 삭제");
+                new DeleteMyBoardService(ViewProductActivity.this).deleteMyBoard(jwt,Long.valueOf(boardId));
+            }
+        }
 
         categoryAdapter2.notifyDataSetChanged();
         System.out.println("View Product Success");
@@ -97,5 +137,15 @@ public class ViewProductActivity extends AppCompatActivity implements ProfileVie
     @Override
     public void viewProductFailure(String message) {
         System.out.println("View Product Failure");
+    }
+
+    @Override
+    public void deleteMyBoardSuccess() {
+
+    }
+
+    @Override
+    public void deleteMyBoardFailure() {
+
     }
 }

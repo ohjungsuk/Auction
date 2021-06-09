@@ -10,9 +10,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.ajou.auction.Main.SearchListActivity;
 import com.ajou.auction.R;
 import com.bumptech.glide.Glide;
 
@@ -21,6 +25,9 @@ public class CategoryFragment extends Fragment {
     private LinearLayout btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9;
     private Context mContext;
     private ImageView img_gif;
+    private EditText category_et_search;
+    private Button category_btn_search;
+    private String keyword;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,25 @@ public class CategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_category, container, false);
         mContext = view.getContext();
+
+        category_btn_search = view.findViewById(R.id.category_btn_search);
+        category_et_search = view.findViewById(R.id.category_et_search);
+
+        category_btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                keyword = category_et_search.getText().toString();
+                if (keyword!= null){
+                    Intent intent = new Intent(getActivity(), CategoryListActivity.class);
+                    intent.putExtra("keyword",keyword);
+                    intent.putExtra("from","CF");
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(getContext(),"검색어를 입력해주세요!",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
         btn1 = view.findViewById(R.id.menu2_btn_clothes);
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +146,7 @@ public class CategoryFragment extends Fragment {
         editor.apply();
 
         Intent intent = new Intent(getActivity(), CategoryListActivity.class);
+        intent.putExtra("from","cf");
         startActivity(intent);
     }
 }
