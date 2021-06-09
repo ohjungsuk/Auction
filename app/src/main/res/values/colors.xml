@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="theme">#E38749</color>
     <color name="subtheme">#D69F7A</color>
+    <color name="subtheme2">#BA5C1E</color>
     <color name="accentColor">#82e5fe</color>
     <color name="normalColor">#93e6fe</color>
 </resources>

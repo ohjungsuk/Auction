@@ -69,4 +69,8 @@ public class CategoryAdapter2 extends RecyclerView.Adapter<CategoryAdapter2.View
             tv_likeCnt = itemView.findViewById(R.id.postlist_likeCnt);
         }
     }
+
+    public void clearData(){
+        mDataList.clear();
+    }
 }

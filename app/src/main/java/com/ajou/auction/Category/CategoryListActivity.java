@@ -16,15 +16,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ajou.auction.Category.Interface.DeleteMyBoardView;
 import com.ajou.auction.Category.Interface.GetAllBoardView;
 import com.ajou.auction.Category.Model.BettingInfos;
 import com.ajou.auction.Category.Model.BoardListInfos;
 import com.ajou.auction.Category.Model.GetAllBoardResponse;
+import com.ajou.auction.Category.Service.DeleteMyBoardService;
 import com.ajou.auction.Category.Service.GetAllBoardService;
+import com.ajou.auction.Main.MyBettingListItem;
 import com.ajou.auction.Profile.FollowerAdapter;
 import com.ajou.auction.Profile.Interfaces.ProfileViewActivityView;
 import com.ajou.auction.Profile.Models.BoardInfo;
 import com.ajou.auction.Profile.Models.FollowerInfoList;
+import com.ajou.auction.Profile.Models.ProfileViewResponse;
 import com.ajou.auction.Profile.Models.ReplyList;
 import com.ajou.auction.Profile.Services.ProfileViewService;
 import com.ajou.auction.R;
@@ -35,7 +39,7 @@ import java.util.List;
 import static com.ajou.auction.ApplicationClass.jwt;
 import static com.ajou.auction.Profile.ViewProfileActivity.forName;
 
-public class CategoryListActivity extends AppCompatActivity implements GetAllBoardView, ProfileViewActivityView {
+public class CategoryListActivity extends AppCompatActivity implements GetAllBoardView, ProfileViewActivityView, DeleteMyBoardView {
 
     private Long categoryId;
     private ArrayList<ViewPostListItem> dataList = new ArrayList<>();
@@ -60,6 +64,7 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
     private String myjwt = null;
     private Boolean currentUserLikeThisBoard = false;
     private List<BettingInfos> totalbetter;
+    private Intent intent;
 
     CategoryAdapter categoryAdapter;
 
@@ -67,6 +72,7 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
+
 
         SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.category_list_swipelayout);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -170,37 +176,35 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
         ArrayList<BoardListInfos> boardListInfos = (ArrayList<BoardListInfos>)response.getBoardList();
         ArrayList<BettingInfos> bettingInfos = (ArrayList<BettingInfos>)boardListInfoss.getBettingInfos();
         if(response != null){
-//            for (BettingInfos bettingInfos1 : bettingInfos){
-//                Long betprice = bettingInfos1.getBettedPrice();
-//            }
-
             for (BoardListInfos boardListInfo : boardListInfos){
                 if(categoryId == boardListInfo.getCategory()){
-                    title = boardListInfo.getTitle();
-                    maxPrice = boardListInfo.getMaxBettingPrice().toString();
-                    image = boardListInfo.getS3imageURL();
-                    deadline = boardListInfo.getAuctionDeadline();
-                    likecnt = boardListInfo.getLikeNumber().toString();
-                    content = boardListInfo.getContent();
-                    boardId = boardListInfo.getBoardId().toString();
-                    category = boardListInfo.getCategory().toString();
-                    completion = boardListInfo.getCompletion();
-                    startPrice = boardListInfo.getStartPrice().toString();
-                    writerId = boardListInfo.getWriterId();
-                    writerNickName = boardListInfo.getWriterNickName();
-                    myjwt = boardListInfo.getWriterJwt().toString();
-                    currentUserLikeThisBoard = boardListInfo.getCurrentUserLikeThisBoard();
-                    totalbetter = boardListInfo.getBettingInfos();
+                    if (boardListInfo.getCompletion().equals("N")){
+                        title = boardListInfo.getTitle();
+                        maxPrice = boardListInfo.getMaxBettingPrice().toString();
+                        image = boardListInfo.getS3imageURL();
+                        deadline = boardListInfo.getAuctionDeadline();
+                        likecnt = boardListInfo.getLikeNumber().toString();
+                        content = boardListInfo.getContent();
+                        boardId = boardListInfo.getBoardId().toString();
+                        category = boardListInfo.getCategory().toString();
+                        completion = boardListInfo.getCompletion();
+                        startPrice = boardListInfo.getStartPrice().toString();
+                        writerId = boardListInfo.getWriterId();
+                        writerNickName = boardListInfo.getWriterNickName();
+                        myjwt = boardListInfo.getWriterJwt().toString();
+                        currentUserLikeThisBoard = boardListInfo.getCurrentUserLikeThisBoard();
+                        totalbetter = boardListInfo.getBettingInfos();
 
-                    //addItem(boardListInfo.getTitle(),boardListInfo.getMaxBettingPrice(),boardListInfo.getS3imageURL(),boardListInfo.getAuctionDeadline(),boardListInfo.getLikeNumber());
-                    dataList.add(new ViewPostListItem(
-                        deadline,boardId,category,completion,content,likecnt,maxPrice,image,startPrice,title,writerId,writerNickName,myjwt,currentUserLikeThisBoard,totalbetter
-                    ));
-                    Log.d("getboard",title);
-                    Log.d("getboard",maxPrice);
-                    Log.d("getboard",image);
-                    Log.d("getboard",deadline);
-                    Log.d("getboard",likecnt);
+                        if (boardListInfo.getCompletion().equals("N")){
+                            dataList.add(new ViewPostListItem(
+                                    deadline,boardId,category,completion,content,likecnt,maxPrice,image,startPrice,title,writerId,writerNickName,myjwt,currentUserLikeThisBoard,totalbetter
+                            ));
+                        }else {
+                            Log.d("mainfragment", "낙찰된 경매 삭제");
+                            new DeleteMyBoardService(CategoryListActivity.this).deleteMyBoard(jwt,Long.valueOf(boardId));
+                        }
+
+                    }
                 }
             }
             //Log.d("getboard","good"+title);
@@ -258,10 +262,27 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
     }
 
     @Override
-    public void viewProductSuccess(ArrayList<BoardInfo> boardList) {
+    public void viewProductSuccess(ArrayList<BoardInfo> boardList, ProfileViewResponse response) {
+
     }
 
     @Override
+    public void viewProductSuccess2(ArrayList<BoardInfo> boardList) {
+
+    }
+
+
+    @Override
     public void viewProductFailure(String message) {
+    }
+
+    @Override
+    public void deleteMyBoardSuccess() {
+
+    }
+
+    @Override
+    public void deleteMyBoardFailure() {
+
     }
 }

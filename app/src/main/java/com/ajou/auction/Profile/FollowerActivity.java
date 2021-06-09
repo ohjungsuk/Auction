@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.ajou.auction.Profile.Interfaces.ProfileViewActivityView;
 import com.ajou.auction.Profile.Models.BoardInfo;
 import com.ajou.auction.Profile.Models.FollowerInfoList;
+import com.ajou.auction.Profile.Models.ProfileViewResponse;
 import com.ajou.auction.Profile.Models.ReplyList;
 import com.ajou.auction.Profile.Services.ProfileAddReplyService;
 import com.ajou.auction.Profile.Services.ProfileViewService;
@@ -91,9 +92,15 @@ public class FollowerActivity extends AppCompatActivity implements ProfileViewAc
     }
 
     @Override
-    public void viewProductSuccess(ArrayList<BoardInfo> boardList) {
+    public void viewProductSuccess(ArrayList<BoardInfo> boardList, ProfileViewResponse response) {
 
     }
+
+    @Override
+    public void viewProductSuccess2(ArrayList<BoardInfo> boardList) {
+
+    }
+
 
     @Override
     public void viewProductFailure(String message) {

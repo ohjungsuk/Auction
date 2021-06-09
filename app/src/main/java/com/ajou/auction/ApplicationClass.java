@@ -5,6 +5,7 @@ import  android.content.Context ;
 import android.content.SharedPreferences;
 
 import  java.text.SimpleDateFormat ;
+import java.util.ArrayList;
 import  java.util.Locale ;
 import  java.util.concurrent.TimeUnit ;
 
@@ -41,6 +42,8 @@ public class ApplicationClass extends Application {
     public static Retrofit retrofit;
 
     public static int authority = -1;
+
+    public static ArrayList<String> getNickNameForChatting = new ArrayList<String>();
 
     @Override
     public void onCreate() {

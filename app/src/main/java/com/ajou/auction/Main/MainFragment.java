@@ -20,11 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ajou.auction.Category.CategoryListActivity;
+import com.ajou.auction.Category.Interface.DeleteMyBoardView;
 import com.ajou.auction.Category.Interface.GetMyBettingView;
 import com.ajou.auction.Category.Model.BettingInfos;
 import com.ajou.auction.Category.Model.GetMyBettingResponse;
 import com.ajou.auction.Category.Model.MyBettingBoardListInfos;
 import com.ajou.auction.Category.Model.MyBettingListInfos;
+import com.ajou.auction.Category.Service.DeleteMyBoardService;
 import com.ajou.auction.Category.Service.GetMyBettingService;
 import com.ajou.auction.Category.ViewPostActivity;
 import com.ajou.auction.Category.ViewPostListItem;
@@ -37,7 +39,7 @@ import java.util.List;
 
 import static com.ajou.auction.ApplicationClass.jwt;
 
-public class MainFragment extends Fragment implements GetMyBettingView {
+public class MainFragment extends Fragment implements GetMyBettingView, DeleteMyBoardView {
 
     private EditText et_search;
     private TextView tv_popular_title;
@@ -74,17 +76,6 @@ public class MainFragment extends Fragment implements GetMyBettingView {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         et_search = view.findViewById(R.id.main_et_search);
-        tv_popular_title = view.findViewById(R.id.main_popular_title);
-
-        btn_popular = view.findViewById(R.id.main_btn_popular);
-        btn_popular.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 실시간 인기 매물 api 받아서 호출해야함
-                Intent intent = new Intent(getActivity(), ViewPostActivity.class);
-                startActivity(intent);
-            }
-        });
 
         btn_search = view.findViewById(R.id.main_btn_search);
         btn_search.setOnClickListener(new View.OnClickListener() {
@@ -140,9 +131,9 @@ public class MainFragment extends Fragment implements GetMyBettingView {
         if(response!= null){
             Toast.makeText(getContext(), "내가 배팅한 게시물 조회 성공", Toast.LENGTH_SHORT).show();
             for (MyBettingListInfos list : myBettingListInfosArrayList){
+                MyBettingBoardListInfos myBettingBoardListInfos1 = list.getBoardOfThisUserBetted();
                 priceOfThisUserBetted = list.getPriceOfThisUserBetted().toString();
                 //Log.d("getboard",priceOfThisUserBetted);
-                MyBettingBoardListInfos myBettingBoardListInfos1 = list.getBoardOfThisUserBetted();
                 title = myBettingBoardListInfos1.getTitle();
                 //Log.d("getboard",title);
                 auctionDeadline = myBettingBoardListInfos1.getAuctionDeadline();
@@ -158,16 +149,15 @@ public class MainFragment extends Fragment implements GetMyBettingView {
                 writerId = myBettingBoardListInfos1.getWriterId();
                 writerNickName = myBettingBoardListInfos1.getWriterNickName();
 
-                dataList.add(new MyBettingListItem(
-                     auctionDeadline,totalbetter ,boardId,category,completion,content,likeNumber,maxBettingPrice,s3imageURL,startPrice,title,priceOfThisUserBetted,writerId,writerNickName
-                ));
-                Log.d("getboard1",title);
-                Log.d("getboard1",boardId);
-                Log.d("getboard1",maxBettingPrice);
-                //Log.d("getboard1", String.valueOf(totalbetter));
-                Log.d("getboard1",priceOfThisUserBetted);
+                if (myBettingBoardListInfos1.getCompletion().equals("N")){
+                    dataList.add(new MyBettingListItem(
+                            auctionDeadline,totalbetter ,boardId,category,completion,content,likeNumber,maxBettingPrice,s3imageURL,startPrice,title,priceOfThisUserBetted,writerId,writerNickName
+                    ));
+                }else {
+                    Log.d("mainfragment", "낙찰된 경매 삭제");
+                    new DeleteMyBoardService(this).deleteMyBoard(jwt,Long.valueOf(boardId));
+                }
             }
-
         }
         myBettingAdapter.notifyDataSetChanged();
     }
@@ -200,5 +190,15 @@ public class MainFragment extends Fragment implements GetMyBettingView {
         intent.putExtra("writerNickName", writerNickName);
         intent.putExtra("totalbetter", totalbetter);
         startActivity(intent);
+    }
+
+    @Override
+    public void deleteMyBoardSuccess() {
+        Log.d("mainfragment", "완료된 경매 삭제");
+    }
+
+    @Override
+    public void deleteMyBoardFailure() {
+
     }
 }

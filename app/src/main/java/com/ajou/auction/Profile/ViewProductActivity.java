@@ -14,6 +14,7 @@ import com.ajou.auction.Category.CategoryAdapter2;
 import com.ajou.auction.Profile.Interfaces.ProfileViewActivityView;
 import com.ajou.auction.Profile.Models.BoardInfo;
 import com.ajou.auction.Profile.Models.FollowerInfoList;
+import com.ajou.auction.Profile.Models.ProfileViewResponse;
 import com.ajou.auction.Profile.Models.ReplyList;
 import com.ajou.auction.Profile.Services.ProfileViewService;
 import com.ajou.auction.R;
@@ -81,7 +82,12 @@ public class ViewProductActivity extends AppCompatActivity implements ProfileVie
     }
 
     @Override
-    public void viewProductSuccess(ArrayList<BoardInfo> boardList) {
+    public void viewProductSuccess(ArrayList<BoardInfo> boardList, ProfileViewResponse response) {
+
+    }
+
+    @Override
+    public void viewProductSuccess2(ArrayList<BoardInfo> boardList) {
         productList.addAll(boardList);
 
         categoryAdapter2.notifyDataSetChanged();
