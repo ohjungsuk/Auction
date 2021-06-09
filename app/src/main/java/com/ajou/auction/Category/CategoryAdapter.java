@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ajou.auction.My.ViewMyLikeListItem;
 import com.ajou.auction.R;
 import com.bumptech.glide.Glide;
 
@@ -31,7 +32,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public CategoryAdapter(ArrayList<ViewPostListItem> mDataList) {
         this.mDataList = mDataList;
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

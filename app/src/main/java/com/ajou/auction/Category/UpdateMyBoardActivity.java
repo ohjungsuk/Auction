@@ -77,8 +77,8 @@ public class UpdateMyBoardActivity extends AppCompatActivity implements UpdateMy
                                 //게시물 수정 API호출
                                 String fContent = update_edt_content.getText().toString();
                                 new UpdateMyBoardService(UpdateMyBoardActivity.this).updateMyBoard(Long.valueOf(mBoardId),fContent,Long.valueOf(mJwt));
-                                Intent intent = new Intent(UpdateMyBoardActivity.this, CategoryListActivity.class);
-                                startActivity(intent);
+//                                Intent intent = new Intent(UpdateMyBoardActivity.this, CategoryListActivity.class);
+//                                startActivity(intent);
                                 finish();
                             }
                         })

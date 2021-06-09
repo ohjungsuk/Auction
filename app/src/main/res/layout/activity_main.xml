@@ -12,26 +12,29 @@
         android:id="@+id/main_btn_post"
         android:layout_width="wrap_content"
         android:layout_height="300dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="20dp"
         android:clickable="true"
         android:focusable="true"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="480dp"
         android:src="@drawable/icon_add"
         app:backgroundTint="@color/theme"
-        app:fabSize="normal"
-        app:layout_anchorGravity="bottom|end" />
+        app:fabSize="normal" />
 
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"/>
+        android:layout_marginBottom="?attr/actionBarSize">
+
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:background="@color/theme"
         app:itemBackground="@color/theme"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"

@@ -17,6 +17,7 @@ public interface ProfileViewActivityView {
     void viewFollowerFailure(String message);
 
     // 판매 상품 관련
-    void viewProductSuccess(ArrayList<BoardInfo> boardList);
+    void viewProductSuccess(ArrayList<BoardInfo> boardList,ProfileViewResponse response);
+    void viewProductSuccess2(ArrayList<BoardInfo> boardList);
     void viewProductFailure(String message);
 }

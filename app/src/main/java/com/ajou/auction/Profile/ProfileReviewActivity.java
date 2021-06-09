@@ -107,7 +107,12 @@ public class ProfileReviewActivity extends AppCompatActivity implements ProfileV
     }
 
     @Override
-    public void viewProductSuccess(ArrayList<BoardInfo> boardList) {
+    public void viewProductSuccess(ArrayList<BoardInfo> boardList, ProfileViewResponse response) {
+
+    }
+
+    @Override
+    public void viewProductSuccess2(ArrayList<BoardInfo> boardList) {
 
     }
 

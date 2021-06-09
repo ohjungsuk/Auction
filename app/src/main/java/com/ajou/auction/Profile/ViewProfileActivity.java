@@ -43,7 +43,8 @@ public class ViewProfileActivity extends AppCompatActivity implements HeartActiv
         tv_jjim.setOnClickListener(new View.OnClickListener() { // 찜한 게시글
             @Override
             public void onClick(View view) {
-                getTitle("찜한 게시글");
+
+                //getTitle("찜한 게시글");
             }
         });
 

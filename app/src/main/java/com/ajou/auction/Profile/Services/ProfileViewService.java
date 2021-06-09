@@ -76,7 +76,8 @@ public class ProfileViewService {
             public void onResponse(Call<ProfileViewResponse> call, Response<ProfileViewResponse> response) {
                 final ProfileViewResponse profileViewResponse = response.body();
                 if (profileViewResponse.getBoardInfos() != null) {
-                    mProfileViewActivityView.viewProductSuccess(profileViewResponse.getBoardInfos());
+                    mProfileViewActivityView.viewProductSuccess(profileViewResponse.getBoardInfos(),profileViewResponse);
+                    mProfileViewActivityView.viewProductSuccess2(profileViewResponse.getBoardInfos());
                     System.out.println("success");
                 } else {
                     System.out.println("What? " + profileViewResponse.getBoardInfos());

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ajou.auction.ApplicationClass;
 import com.ajou.auction.R;
 
 import java.util.ArrayList;
@@ -39,9 +40,14 @@ public class ChattingFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         ArrayList<ChatItem> dataList = new ArrayList<>();
-        dataList.add(new ChatItem("뿡뿡이", "어디서 만나면 될까요?"));
-        dataList.add(new ChatItem("하", "좋은 거래 감사합니다!"));
-        dataList.add(new ChatItem("경매쟁", "지하철 역 앞에서 만나영"));
+//        dataList.add(new ChatItem("뿡뿡이", "어디서 만나면 될까요?"));
+//        dataList.add(new ChatItem("하", "좋은 거래 감사합니다!"));
+//        dataList.add(new ChatItem("경매쟁", "지하철 역 앞에서 만나영"));
+
+        ApplicationClass applicationClass = new ApplicationClass();
+        for (int i= 0; i<applicationClass.getNickNameForChatting.size(); i++){
+            dataList.add(new ChatItem(applicationClass.getNickNameForChatting.get(i),"님과 지금바로 거래를 진행해주세요!"));
+        }
 
         ChattingAdapter chattingAdapter = new ChattingAdapter(dataList);
         recyclerView.setAdapter(chattingAdapter);
