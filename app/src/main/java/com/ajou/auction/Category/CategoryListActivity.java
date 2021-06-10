@@ -93,13 +93,18 @@ public class CategoryListActivity extends AppCompatActivity implements GetAllBoa
         System.out.println("Category Id 확인 " + categoryId);
 
         Intent intent = getIntent();
-        if (intent.getStringExtra("from").equals("MF")){
-            isMyBoard = intent.getBooleanExtra("isMyBoard",false);
-        }else if (intent.getStringExtra("from").equals("CF")){
-            keyword = intent.getStringExtra("keyword");
-            search = true;
-            categoryId = 11L;
+
+        if (intent.getStringExtra("from")!=null){
+            if (intent.getStringExtra("from").equals("MF")){
+                isMyBoard = intent.getBooleanExtra("isMyBoard",false);
+                categoryId = 10L;
+            }else if (intent.getStringExtra("from").equals("CF")){
+                keyword = intent.getStringExtra("keyword");
+                search = true;
+                categoryId = 11L;
+            }
         }
+
 
         btn_close = findViewById(R.id.category_btn_close);
         btn_close.setOnClickListener(new View.OnClickListener() {

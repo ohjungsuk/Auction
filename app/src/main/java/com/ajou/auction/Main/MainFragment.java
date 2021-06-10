@@ -104,7 +104,7 @@ public class MainFragment extends Fragment implements GetMyBettingView, DeleteMy
 
     MyBettingAdapter myBettingAdapter;
     HotBoardAdapter hotBoardAdapter;
-    LinearLayout hot_linear;
+    LinearLayout hot_linear,hot_linear2;
 
     private Button mf_btnToHot;
 
@@ -130,6 +130,7 @@ public class MainFragment extends Fragment implements GetMyBettingView, DeleteMy
         mf_btnToHot = view.findViewById(R.id.mf_btnToHot);
         hot = view.findViewById(R.id.hot);
         hot_linear = view.findViewById(R.id.hot_linear);
+        hot_linear2 = view.findViewById(R.id.hot_linear2);
 
         btn_search = view.findViewById(R.id.main_btn_search);
         btn_search.setOnClickListener(new View.OnClickListener() {
@@ -298,16 +299,16 @@ public class MainFragment extends Fragment implements GetMyBettingView, DeleteMy
                         new DeleteMyBoardService(this).deleteMyBoard(jwt,Long.valueOf(boardId1));
                     }
                     hot_linear.setVisibility(View.VISIBLE);
+                    hot_linear2.setVisibility(View.VISIBLE);
                 }
                 else { // 내 게시물이면
-                    hot_linear.setVisibility(View.GONE);
+//                    hot_linear.setVisibility(View.GONE);
+//                    hot_linear2.setVisibility(View.GONE);
                 }
             }
             tv_title.setText(title1);
             tv_price.setText(maxPrice1);
             tv_totalbetter.setText(likecnt1);
-//            tv_totalbetter.setText(totalbetter1.size());
-
 
             Animation mAnimation = new AlphaAnimation(1, 0);
             mAnimation.setDuration(700);

@@ -120,10 +120,12 @@ public class ViewProductActivity extends AppCompatActivity implements ProfileVie
     @Override
     public void viewProductSuccess2(ArrayList<BoardInfo> boardList) {
         for (BoardInfo boardInfo: boardList){
+            productList.clear();
             String completion = boardInfo.getCompletion();
             Long boardId = boardInfo.getBoardId();
             if (completion.equals("N")){
                 productList.addAll(boardList);
+                Log.d("product","test");
             }else {
                 Log.d("aaa", "낙찰된 경매 삭제");
                 new DeleteMyBoardService(ViewProductActivity.this).deleteMyBoard(jwt,Long.valueOf(boardId));

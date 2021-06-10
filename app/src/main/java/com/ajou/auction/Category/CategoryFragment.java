@@ -45,6 +45,8 @@ public class CategoryFragment extends Fragment {
         category_btn_search = view.findViewById(R.id.category_btn_search);
         category_et_search = view.findViewById(R.id.category_et_search);
 
+        category_et_search.setText("");
+
         category_btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

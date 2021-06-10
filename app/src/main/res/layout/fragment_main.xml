@@ -141,6 +141,8 @@
 
 
         <LinearLayout
+            android:id="@+id/hot_linear2"
+            android:visibility="visible"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
